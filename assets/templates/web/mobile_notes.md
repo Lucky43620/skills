@@ -1,0 +1,2 @@
+- Tester sur mobile/web.
+- Prévoir fallback.

@@ -1,0 +1,1 @@
+- Powerbox: éléments exposés via registries.

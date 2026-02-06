@@ -1,0 +1,2 @@
+- Utiliser les classes/icons Odoo.
+- Vérifier la librairie d’icônes cible.

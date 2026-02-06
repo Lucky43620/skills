@@ -1,0 +1,2 @@
+- Identifier le modèle exact (account.move, account.tax...).
+- Respecter contraintes comptables.

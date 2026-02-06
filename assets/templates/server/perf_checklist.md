@@ -1,0 +1,4 @@
+- Mesurer (profiling)
+- Réduire le nombre de requêtes
+- Indexer si nécessaire
+- Éviter compute coûteux sans store

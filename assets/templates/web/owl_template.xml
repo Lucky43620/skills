@@ -1,0 +1,10 @@
+<odoo>
+  <templates xml:space="preserve">
+    <t t-name="my_module.MyWidget">
+      <div class="o_my_widget">
+        <button type="button" t-on-click="increment">+</button>
+        <span t-esc="state.count"/>
+      </div>
+    </t>
+  </templates>
+</odoo>

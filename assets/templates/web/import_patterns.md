@@ -1,0 +1,2 @@
+- Importer depuis @web/... pour les briques core.
+- Garder les chemins stables.

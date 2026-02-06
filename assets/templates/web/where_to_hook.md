@@ -1,0 +1,4 @@
+- Registry: élément pluggable (views/fields/actions/services...).
+- Service: état + API partagée.
+- Component: UI.
+- Patch: extension ciblée (dernier recours).

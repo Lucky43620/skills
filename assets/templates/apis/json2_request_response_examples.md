@@ -1,0 +1,1 @@
+- Exemple request/response (à compléter selon doc)

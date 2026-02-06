@@ -1,0 +1,2 @@
+- Bundles classiques: web.assets_backend / web.assets_frontend / web.assets_common.
+- Utilise debug=assets pour déboguer le chargement.

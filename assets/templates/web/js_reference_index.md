@@ -1,0 +1,2 @@
+- Chercher la section (views, fields, notification, session...)
+- Repérer le registry/service correspondant.

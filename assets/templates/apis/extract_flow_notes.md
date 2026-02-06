@@ -1,0 +1,2 @@
+- Flow: parse -> get results
+- Gérer retries/polling

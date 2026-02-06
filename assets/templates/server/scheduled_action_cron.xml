@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- Scheduled Action (ir.cron) -->
+  <record id="cron_my_job" model="ir.cron">
+    <field name="name">My Job</field>
+    <field name="model_id" ref="model_x_model"/>
+    <field name="state">code</field>
+    <field name="code">model._my_job()</field>
+    <field name="interval_number">1</field>
+    <field name="interval_type">hours</field>
+    <field name="numbercall">-1</field>
+    <field name="active">True</field>
+  </record>
+</odoo>

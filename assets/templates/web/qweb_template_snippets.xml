@@ -1,0 +1,7 @@
+<odoo>
+  <templates xml:space="preserve">
+    <t t-name="my_module.Snippet">
+      <t t-if="condition">OK</t>
+    </t>
+  </templates>
+</odoo>

@@ -1,0 +1,2 @@
+- Eviter boucles N+1.
+- Utiliser recordsets (mapped, filtered, sorted).

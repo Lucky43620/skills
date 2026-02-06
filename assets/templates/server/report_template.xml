@@ -1,0 +1,10 @@
+<odoo>
+    <template id="report_my_model">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2 t-esc="doc.name"/>
+                <p>Contenu du rapport...</p>
+            </div>
+        </t>
+    </template>
+</odoo>

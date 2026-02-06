@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <!-- URL Action (ir.actions.act_url) -->
+  <record id="action_my_module_docs" model="ir.actions.act_url">
+    <field name="name">Docs</field>
+    <field name="url">https://example.com</field>
+    <field name="target">new</field>
+  </record>
+</odoo>

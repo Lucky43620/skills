@@ -1,0 +1,2 @@
+- Utiliser inherit_id + xpath.
+- Cibler précisément.

@@ -1,0 +1,2 @@
+- Éviter throw comme contrôle de flux.
+- Préférer erreurs gérées + notifications + fallback UI.

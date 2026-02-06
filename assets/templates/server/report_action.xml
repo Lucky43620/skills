@@ -1,0 +1,9 @@
+<odoo>
+    <record id="action_report_my_model" model="ir.actions.report">
+        <field name="name">My Model Report</field>
+        <field name="model">my.model</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">my_module.report_my_model</field>
+        <field name="report_file">my_module.report_my_model</field>
+    </record>
+</odoo>

@@ -1,0 +1,2 @@
+- Vérifier l’héritage (mail.thread, website.published.mixin...).
+- Vérifier champs/contraintes ajoutés.
