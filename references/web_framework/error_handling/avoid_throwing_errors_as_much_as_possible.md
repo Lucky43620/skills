@@ -51,6 +51,7 @@ this.dialog.add(ConfirmationDialog, { body: "Action impossible" });
 ## Debug & troubleshooting
 - Inspecte les stack traces pour trouver le `throw` d’origine. 
 - Remplace les `throw` non critiques par un feedback UI. 
+- Vérifie les handlers async pour éviter les `Uncaught (in promise)`. 
 
 ## Exemples complets
 ### Exemple — Validation de formulaire

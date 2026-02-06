@@ -50,6 +50,7 @@ const items = await fetch().catch(() => []);
 ## Debug & troubleshooting
 - Remplace les `throw` non critiques par des retours explicites. 
 - Ajoute des logs lorsque `ok=false`. 
+- Teste les branches `ok=false` pour éviter les régressions. 
 
 ## Exemples complets
 ### Exemple — Service qui retourne un `Result`

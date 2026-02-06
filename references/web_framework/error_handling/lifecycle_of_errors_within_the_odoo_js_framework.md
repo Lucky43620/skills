@@ -53,6 +53,7 @@ error.message = `[MyFeature] ${error.message}`;
 ## Debug & troubleshooting
 - Inspecte la console pour voir la couche qui a intercepté. 
 - Vérifie si l’erreur vient d’un service (rpc) ou d’un composant. 
+- Ajoute un identifiant de contexte dans les logs pour tracer le flux. 
 
 ## Exemples complets
 ### Exemple — Boundary locale sur un panneau

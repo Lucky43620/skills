@@ -49,6 +49,19 @@ registry.category("actions").add("my_module.my_action", () => ({
 }
 ```
 
+### Exemple image/font
+```text
+my_module/static/src/img/logo.svg
+my_module/static/src/fonts/myfont.woff2
+```
+```scss
+// my_module/static/src/scss/fonts.scss
+@font-face {
+  font-family: "MyFont";
+  src: url("/my_module/static/src/fonts/myfont.woff2") format("woff2");
+}
+```
+
 ## Patterns recommandés
 1) **Séparer JS/SCSS/XML dans des sous-dossiers**
 ```
@@ -83,6 +96,7 @@ static/src/website/...
 - `?debug=assets` pour voir les fichiers compilés. 
 - Vérifie l’extension et la présence dans le bon bundle. 
 - Inspecte le DOM pour confirmer que le template QWeb est bien chargé. 
+- Vérifie les URLs statiques (`/my_module/static/...`) pour les 404. 
 
 ## Exemples complets
 ### Exemple — Widget complet

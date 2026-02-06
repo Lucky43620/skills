@@ -53,6 +53,7 @@ catch (error) { return []; }
 ## Debug & troubleshooting
 - Vérifie la console pour les erreurs `Uncaught (in promise)`. 
 - Ajoute des logs structurés avec le nom du module. 
+- Utilise `?debug=assets` pour remonter aux sources non minifiées. 
 
 ## Exemples complets
 ### Exemple — Service avec fallback

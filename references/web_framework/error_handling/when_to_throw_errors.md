@@ -43,6 +43,7 @@ catch (error) {
 ## Debug & troubleshooting
 - Vérifie la stack trace pour localiser l’état impossible. 
 - Ajoute un test unitaire qui reproduit l’état critique. 
+- Préfixe les erreurs avec le module concerné pour tracer rapidement. 
 
 ## Exemples complets
 ### Exemple — Guard critique
