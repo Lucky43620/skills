@@ -1,6 +1,6 @@
 # How does it work
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
 
 ## TL;DR
 
@@ -69,11 +69,7 @@ export class MobileToggle extends Component {
 
 ## Liens officiels
 
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile.html
-
-## Vérifié vs doc
-
-Lien officiel ajusté vers `mobile.html`, page cible indiquée par la doc Odoo 19.
+- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
 
 ## Voir aussi
 

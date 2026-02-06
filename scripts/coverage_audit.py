@@ -7,7 +7,6 @@ avoid relying on openpyxl when it cannot be installed in the environment.
 from __future__ import annotations
 
 import csv
-import re
 import sys
 import zipfile
 from dataclasses import dataclass
@@ -18,19 +17,6 @@ import xml.etree.ElementTree as ET
 
 
 NS = {"main": "http://schemas.openxmlformats.org/spreadsheetml/2006/main"}
-REQUIRED_SECTIONS = [
-    "TL;DR",
-    "Quand l’utiliser",
-    "Concepts clés",
-    "API / Syntaxe",
-    "Patterns recommandés",
-    "Anti-patterns & pièges",
-    "Debug & troubleshooting",
-    "Exemples complets",
-    "Checklist",
-    "Liens officiels",
-    "Voir aussi",
-]
 
 
 @dataclass
@@ -141,42 +127,6 @@ def write_preview_csv(rows: list[list[str | None]], path: Path, limit: int = 10)
             writer.writerow([cell or "" for cell in row])
 
 
-def extract_links(text: str) -> list[str]:
-    pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
-    return pattern.findall(text)
-
-
-def scan_markdown_files(base_dir: Path) -> dict[str, dict[str, object]]:
-    results: dict[str, dict[str, object]] = {}
-    for path in base_dir.rglob("*.md"):
-        rel_path = path.as_posix()
-        content = path.read_text(encoding="utf-8")
-        words = len(re.findall(r"\b\\w+\\b", content))
-        headings = re.findall(r"^##\\s+(.+)$", content, flags=re.MULTILINE)
-        missing_sections = [
-            section for section in REQUIRED_SECTIONS if section not in headings
-        ]
-        short_without_sections = words < 120 and not headings
-        broken_links: list[str] = []
-        for link in extract_links(content):
-            if link.startswith(("http://", "https://", "#", "mailto:")):
-                continue
-            if link.startswith("/"):
-                target = base_dir.parent / link.lstrip("/")
-            else:
-                target = (path.parent / link).resolve()
-            if target.suffix == ".md" and not target.exists():
-                broken_links.append(link)
-        results[rel_path] = {
-            "words": words,
-            "headings": headings,
-            "missing_sections": missing_sections,
-            "short_without_sections": short_without_sections,
-            "broken_links": broken_links,
-        }
-    return results
-
-
 def main() -> int:
     xlsx_path = Path("odoo_v19_skill_coverage_matrix.xlsx")
     if not xlsx_path.exists():
@@ -184,10 +134,6 @@ def main() -> int:
         return 1
 
     report_path = Path("coverage_report.md")
-
-    markdown_scan = scan_markdown_files(Path("references"))
-
-    status_counts: dict[str, int] = {}
 
     with zipfile.ZipFile(xlsx_path) as zf:
         sheets = iter_sheets(zf)
@@ -202,18 +148,6 @@ def main() -> int:
         matches = detect_sheet_with_path_status(sheets, zf)
         queue_name, queue_rows = pick_work_queue(sheet_map, zf)
 
-        all_pages = sheet_map.get("All Pages")
-        if all_pages:
-            rows = read_rows(zf, all_pages.target, max_rows=None, max_cols=40)
-            if rows:
-                header = rows[0]
-                if "Status" in header:
-                    status_idx = header.index("Status")
-                    for row in rows[1:]:
-                        status = row[status_idx]
-                        if status:
-                            status_counts[status] = status_counts.get(status, 0) + 1
-
     with report_path.open("w", encoding="utf-8") as handle:
         handle.write("# Coverage report (audit XLSX)\n\n")
         handle.write(
@@ -223,13 +157,6 @@ def main() -> int:
         handle.write("## Onglets détectés\n\n")
         for name in sheet_names:
             handle.write(f"- {name}\n")
-
-        if status_counts:
-            total = sum(status_counts.values())
-            handle.write("\n## Totaux par statut (All Pages)\n\n")
-            handle.write(f"Total pages: **{total}**\n\n")
-            for status in sorted(status_counts):
-                handle.write(f"- {status}: {status_counts[status]}\n")
 
         handle.write("\n## Feuilles avec colonnes `Path` et `Status`\n\n")
         if matches:
@@ -278,24 +205,6 @@ def main() -> int:
                     path = row[path_idx] or ""
                     priority = row[priority_idx] if priority_idx is not None else ""
                     handle.write(f"|{status}|{priority}|{path}|\n")
-
-        handle.write("\n## Audit markdown (sections / liens / longueur)\n\n")
-        handle.write(
-            "Ce tableau liste les pages avec sections manquantes, liens internes cassés "
-            "ou contenu très court sans sections.\n\n"
-        )
-        handle.write(
-            "|Fichier|Mots|Sections manquantes|Liens cassés|Court sans sections|\n"
-            "|---|---|---|---|---|\n"
-        )
-        for rel_path, info in sorted(markdown_scan.items()):
-            missing = ", ".join(info["missing_sections"]) or "—"
-            broken = ", ".join(info["broken_links"]) or "—"
-            short = "Oui" if info["short_without_sections"] else "Non"
-            if missing != "—" or broken != "—" or short == "Oui":
-                handle.write(
-                    f"|{rel_path}|{info['words']}|{missing}|{broken}|{short}|\n"
-                )
 
     preview_csv = Path("coverage_report_preview.csv")
     if queue_rows:

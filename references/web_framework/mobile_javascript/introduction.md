@@ -1,6 +1,6 @@
 # Introduction (Mobile JavaScript)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
 
 ## TL;DR
 
@@ -69,11 +69,7 @@ export class MobileCard extends Component {
 
 ## Liens officiels
 
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile.html
-
-## Vérifié vs doc
-
-La page officielle Odoo 19 renvoie désormais vers `mobile.html` pour cette rubrique, lien mis à jour ici.
+- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
 
 ## Voir aussi
 
