@@ -69,3 +69,6 @@ export function requireConfig(config, key) {
 ## Voir aussi
 - [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
 - [Error free control flow](error_free_control_flow.md)
+- [Catching errors](catching_errors.md)
+- [Errors in JavaScript](errors_in_javascript.md)
+- [Error handling](index.md)

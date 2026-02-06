@@ -81,3 +81,6 @@ export async function fetchMetrics(rpc) {
 ## Voir aussi
 - [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
 - [Error free control flow](error_free_control_flow.md)
+- [Errors in JavaScript](errors_in_javascript.md)
+- [When to throw errors](when_to_throw_errors.md)
+- [Error handling](index.md)
