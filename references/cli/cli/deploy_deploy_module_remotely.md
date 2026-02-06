@@ -1,13 +1,14 @@
-# deploy - Deploy module remotely
+# Deploy
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/cli.html
+> [!NOTE]
+> **Rarely Used.**
+> Most developers use standard Git/CI/CD pipelines or Odoo.sh instead of this command.
 
-## TL;DR
+This command attempts to deploy a module to a remote server via SSH.
 
-- Résumé + options clés.
+## Usage
+`./odoo-bin deploy <path> <url>`
 
-## Exemples
-
-```bash
-# Exemple à ajouter
-```
+## Requirements
+*   SSH access to the server.
+*   Correctly configured environment.

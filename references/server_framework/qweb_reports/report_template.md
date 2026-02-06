@@ -1,94 +1,64 @@
-# Report template
+# QWeb Report Templates
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/reporting.html
+Reports in Odoo are web pages generated using QWeb templates.
 
-## TL;DR
+## Standard Variables
 
-- Un template QWeb décrit la structure du rapport (HTML/PDF).
-- Il est référencé par `ir.actions.report` via `report_name`.
+Report templates always provide the following variables:
+*   `docs`: Records for the current report (iterable).
+*   `doc_ids`: List of IDs for the docs records.
+*   `doc_model`: Model for the docs records.
+*   `time`: Python `time` module.
+*   `user`: `res.users` record for the user printing the report.
+*   `res_company`: Record for the current user’s company.
+*   `web_base_url`: The base URL for the webserver.
+*   `context_timestamp`: Function converting UTC datetime to user's timezone.
 
-## Quand l’utiliser
-
-- Pour créer un nouveau rapport QWeb.
-- Pour surcharger le rendu d’un rapport existant.
-
-## Concepts clés
-
-- **Template QWeb** : `<template id="...">` avec `t-call` et `t-foreach`.
-- **`doc` / `docs`** : enregistrements passés au template.
-- **Layout** : `web.external_layout` pour l’entête/pied.
-
-## API / Syntaxe
+## Minimal Viable Template
 
 ```xml
-<!-- my_module/views/report_template.xml -->
-<odoo>
-  <template id="report_my_doc">
-    <t t-call="web.external_layout">
-      <div class="page">
-        <h2><t t-esc="doc.display_name"/></h2>
-        <p>Contenu...</p>
-      </div>
+<template id="report_invoice">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2>Report title</h2>
+                    <p>This object's name is <span t-field="o.name"/></p>
+                </div>
+            </t>
+        </t>
     </t>
-  </template>
-</odoo>
+</template>
 ```
 
-## Patterns recommandés
+*   `web.html_container`: Necessary root layout.
+*   `web.external_layout`: Adds default header/footer (company logo, etc.).
+*   `class="page"`: The content inside this div defines the PDF body.
 
-- Utiliser `web.external_layout` pour un rendu cohérent.
-- Préparer les données côté Python (peu de logique dans le template).
-- Isoler les sous-templates pour la réutilisabilité.
+## Translatable Templates
 
-## Anti-patterns & pièges
+To translate reports (e.g., to the customer's language), use a sub-template method:
 
-- Logique métier lourde dans le template.
-- Oublier d’inclure le template dans les fichiers `data`.
-
-## Debug & troubleshooting
-
-- Tester en HTML avant de générer un PDF.
-- Vérifier les variables `doc`/`docs` dans le contexte.
-
-## Exemples complets
-
-```python
-# my_module/models/report_my_doc.py
-from odoo import models
-
-class ReportMyDoc(models.AbstractModel):
-    _name = "report.my_module.report_my_doc"
-    _description = "Report My Doc"
-
-    def _get_report_values(self, docids, data=None):
-        docs = self.env["res.partner"].browse(docids)
-        return {"docs": docs}
-```
+1.  **Main Template:** Iterates over docs and calls the document template with `t-lang`.
+2.  **Document Template:** Renders the single record.
 
 ```xml
-<!-- my_module/views/report_action.xml -->
-<record id="action_report_my_doc" model="ir.actions.report">
-  <field name="name">Mon document</field>
-  <field name="model">res.partner</field>
-  <field name="report_type">qweb-pdf</field>
-  <field name="report_name">my_module.report_my_doc</field>
-  <field name="report_file">my_module.report_my_doc</field>
-  <field name="binding_model_id" ref="model_res_partner"/>
-</record>
+<!-- Main Template -->
+<template id="report_saleorder">
+    <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="doc">
+            <t t-call="sale.report_saleorder_document" t-lang="doc.partner_id.lang"/>
+        </t>
+    </t>
+</template>
+
+<!-- Translatable Document Template -->
+<template id="report_saleorder_document">
+    <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+    <t t-call="web.external_layout">
+        <div class="page">
+            <!-- Content -->
+        </div>
+    </t>
+</template>
 ```
-
-## Checklist
-
-- [ ] Template QWeb déclaré dans `data`.
-- [ ] `report_name` aligné avec l’ID du template.
-- [ ] Test HTML avant PDF.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/developer/reference/backend/reporting.html
-
-## Voir aussi
-
-- [QWeb reports (index)](index.md)
-- [Report actions](../actions/report_actions_ir_actions_report.md)
-- [Paper format](paper_format.md)

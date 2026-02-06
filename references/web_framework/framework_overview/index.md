@@ -1,26 +1,14 @@
-# Framework Overview
+# Web Framework Overview
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+This section covers the architecture of the Odoo Web Client (the JavaScript frontend).
 
-Rubrique **Framework Overview** (Web framework) : frontend Odoo (JS/Owl) + architecture webclient.
+## Core Concepts
+*   **WebClient:** The root component that manages the user interface.
+*   **Environment:** The central context containing services and the bus.
+*   **Context:** Detailed context for RPC calls (user language, timezone, etc.).
+*   **Building Blocks:** Primitive components used throughout Odoo.
 
-## Sous-rubriques
-
-- [Introduction](introduction.md)
-- [Code structure](code_structure.md)
-- [WebClient Architecture](webclient_architecture.md)
-- [Environment](environment.md)
-- [Building Blocks](building_blocks.md)
-- [Context](context.md)
-- [Python Interpreter](python_interpreter.md)
-- [Domains](domains.md)
-- [Bus](bus.md)
-- [Browser Object](browser_object.md)
-- [Debug mode](debug_mode.md)
-
-## Checklist rapide
-
-- Identifier le besoin exact (API / XML / UI / perf / sécurité).
-- Repérer les fichiers Odoo concernés (Python, XML, CSV, JS).
-- Appliquer un pattern de référence (snippets).
-- Vérifier tests + debug.
+## Key Technologies
+*   **Owl:** The UI framework (based on React hooks principle).
+*   **Modules:** Native ES6 modules.
+*   **QWeb:** The templating engine.

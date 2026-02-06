@@ -1,27 +1,20 @@
-# Services
+# Services (JS Reference)
 
-## TL;DR
+Services are long-lived singleton objects that provide features to the whole application.
 
-- Résumé à compléter + patterns.
+## Core Services
+*   **rpc:** Low-level HTTP JSON-RPC calls.
+*   **orm:** High-level Record/Model handling.
+*   **action:** Managing actions (window, server, client).
+*   **user:** Info about the current user (context, permissions).
+*   **router:** URL state management.
+*   **notification:** Displaying toaster notifications.
 
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+## Accessing
+In a component:
+```javascript
+setup() {
+    this.rpc = useService("rpc");
+    this.notification = useService("notification");
+}
 ```

@@ -1,29 +1,26 @@
-# Removing a patch
+# Removing a Patch
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/patching_code.html
+When you call `patch()`, it returns an `unpatch` function.
 
-## TL;DR
+## Usage
+Checking code to test that patches can be removed.
 
-- Résumé à compléter + patterns.
+```javascript
+import { patch } from "@web/core/utils/patch";
+import { MyClass } from "./my_class";
 
-## Concepts clés
+// Apply patch
+const unpatch = patch(MyClass.prototype, {
+    getValue() { return 100; }
+});
 
-- Concepts clés.
+console.log(new MyClass().getValue()); // 100
 
-## Patterns recommandés
+// Remove patch
+unpatch();
 
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+console.log(new MyClass().getValue()); // Original value
 ```
+
+## Why?
+This is critical for **Unit Testing**. Tests often patch components to mock behavior. If they don't unpatch in `teardown()`, the mock leaks into other tests, causing random failures.

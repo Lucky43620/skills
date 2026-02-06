@@ -1,21 +1,12 @@
 # Field Access
 
-## TL;DR
-
-- Accès champ : via `groups=` sur la définition de champ, et/ou via views (groups) côté UI.
-- Complète ACL/rules en cachant ou limitant des champs sensibles.
-
-## Patterns recommandés
-
-- Mettre `groups` sur le champ si c’est une règle d’accès fondamentale.
-- Mettre `groups` dans la vue si c’est purement UI (pas sécurité forte).
-
-## Pièges fréquents
-
-- Cacher un champ dans la vue ne le sécurise pas côté RPC/ORM.
-
-## Exemples
+An ORM field can have a `groups` attribute providing a list of groups (as a comma-separated string of XMLIDs).
 
 ```python
-secret = fields.Char(groups="base.group_system")
+secret_code = fields.Char(groups="base.group_system")
 ```
+
+If the current user is not in one of the listed groups:
+1.  **Views:** Restricted fields are automatically removed from requested views.
+2.  **Introspection:** Restricted fields are removed from `fields_get()` responses.
+3.  **Access:** Attempts to explicitly read or write to restricted fields result in an Access Error in the ORM.

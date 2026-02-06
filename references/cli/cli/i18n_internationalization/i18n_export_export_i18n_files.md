@@ -1,11 +1,3 @@
-# i18n export - Export i18n files
+# I18N Export Export I18N Files
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

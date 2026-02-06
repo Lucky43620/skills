@@ -1,29 +1,21 @@
 # useSpellCheck
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html#usespellcheck
+> Location: `@web/core/utils/hooks`
 
-## TL;DR
+## Description
+Active la vérification orthographique sur un input/textarea au focus, et la retire au blur (évite les lignes rouges disgracieuses quand on ne tape pas).
+Cible par défaut l'élément avec `t-ref="spellcheck"`.
 
-- Résumé à compléter + patterns.
+## Utilisation
 
-## Concepts clés
+```javascript
+import { useSpellCheck } from "@web/core/utils/hooks";
 
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+class Comp extends Component {
+    setup() {
+        this.simpleRef = useSpellCheck(); // Cible t-ref="spellcheck"
+        this.customRef = useSpellCheck({ refName: "custom" }); // Cible t-ref="custom"
+    }
+}
 ```

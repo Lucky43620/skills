@@ -1,11 +1,8 @@
-# Object service
+# Object Service
 
-## TL;DR
+## Overview
 
-- Résumé service + équivalent JSON-2.
+This section covers details about **Object Service**.
 
-## Exemples
-
-```text
-...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

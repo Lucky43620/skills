@@ -1,41 +1,34 @@
-# Controllers (Web Controllers)
+# Web Controllers (`http.Controller`)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/http.html
+Controllers handle HTTP requests (routes) in Odoo.
 
-## TL;DR
-
-- Les controllers exposent des routes HTTP via `@http.route`.
-- Types courants : `http` (HTML/texte) et `jsonrpc` (RPC JSON-RPC 2 over HTTP).
-
-## Concepts clés
-
-- Paramètres route : path, type, auth (public/user), methods, csrf, website.
-- `request` donne accès à env/params/session.
-
-## Patterns recommandés
-
-- Limiter les routes publiques; valider entrées; éviter de renvoyer des données sensibles.
-- Pour API : préférer `type='jsonrpc'` + format stable.
-
-## Pièges fréquents
-
-- Exposer des méthodes de modèle via controller sans ACL.
-- Oublier CSRF pour routes `http` qui modifient des données.
-
-## Exemples
+## Definition
+Inherit from `odoo.http.Controller`.
 
 ```python
 from odoo import http
-from odoo.http import request
 
 class MyController(http.Controller):
-
-  @http.route('/my/page', type='http', auth='user')
-  def page(self, **kw):
-    return request.render('my_addon.template', {})
+    @http.route('/my_module/hello', auth='public', type='http', website=True)
+    def hello(self, name='World'):
+        return f"Hello, {name}!"
 ```
 
-## Voir aussi
+## Decorator: `@http.route`
+*   **route**: The URL path (e.g., `/shop/cart`).
+*   **auth**: Access level.
+    *   `public`: Anyone.
+    *   `user`: Logged-in users.
+    *   `none`: No session check (rare).
+*   **type**:
+    *   `http`: Returns HTML/Text/Response object. Arguments from query params/form data.
+    *   `json`: Returns JSON. Arguments from JSON body. Used for RPC.
+*   **website**: `True` if this page is part of the website (loads website menus, branding).
 
-- `assets/templates/server/controller_http.py`
-- `assets/templates/server/controller_jsonrpc.py`
+## Returning Responses
+*   **String:** Simple text/html.
+*   **`request.render`:** Render a QWeb template.
+    ```python
+    return http.request.render('my_module.template_id', {'key': 'value'})
+    ```
+*   **`request.redirect`:** Redirect to another URL.

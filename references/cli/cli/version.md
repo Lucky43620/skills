@@ -1,13 +1,3 @@
 # Version
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/cli.html
-
-## TL;DR
-
-- Résumé + options clés.
-
-## Exemples
-
-```bash
-# Exemple à ajouter
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

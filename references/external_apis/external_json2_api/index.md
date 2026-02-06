@@ -1,21 +1,40 @@
 # External JSON-2 API
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/external_api.html
+> [!NOTE]
+> **New in Odoo 19.**
+> This is the recommended API for all new integrations.
 
-API HTTP `/json/2` (nouveau en v19) pour exposer une partie du Models API à l’extérieur.
+## Overview
+The JSON-2 API allows interacting with Odoo using standard JSON payloads. It replaces the legacy XML-RPC API.
 
-## Sous-rubriques
+## Built-in Documentation
+Odoo 19 includes a built-in API documentation and testing tool.
+*   **URL:** `https://<your-instance>/doc`
+*   **Access:** Requires "Technical Documentation" user group.
+*   **Features:**
+    *   Browse all models and methods.
+    *   Test API calls directly in the browser.
+    *   Generate code snippets (Python, JSON).
 
-- [API](api.md)
-- [Configuration](configuration.md)
-- [Transaction](transaction.md)
-- [Code Example](code_example.md)
-- [Dynamic Documentation](dynamic_documentation.md)
-- [Migrating from XML-RPC / JSON-RPC](migrating_from_xml_rpc_json_rpc.md)
+## Endpoint
+**POST** `/json/2`
 
-## Checklist rapide
+## Authentication
+Authentication is done via **API Keys**.
+1.  Go to User Preferences.
+2.  Account Security > Developer API Keys.
+3.  Generate a new key.
 
-- Identifier le besoin exact (API / XML / UI / perf / sécurité).
-- Repérer les fichiers Odoo concernés (Python, XML, CSV, JS).
-- Appliquer un pattern de référence (snippets).
-- Vérifier tests + debug.
+## Request Format
+```json
+{
+    "jsonrpc": "2.0",
+    "method": "call",
+    "params": {
+        "service": "object",
+        "method": "execute_kw",
+        "args": [...]
+    },
+    "id": 1
+}
+```

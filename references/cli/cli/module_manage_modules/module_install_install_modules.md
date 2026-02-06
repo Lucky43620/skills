@@ -1,11 +1,3 @@
-# module install - Install modules
+# Module Install Install Modules
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

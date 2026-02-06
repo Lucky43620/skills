@@ -1,26 +1,28 @@
 # useBus
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html#usebus
+> Location: `@web/core/utils/hooks`
 
-## TL;DR
+## Description
+Ajoute un écouteur d'événement sur un bus et le retire automatiquement quand le composant est démonté ("unmounted").
+C'est la méthode recommandée pour écouter le `env.bus` sans fuite de mémoire.
 
-- Hook pour s’abonner à un bus (EventBus) et nettoyer automatiquement à l’unmount.
-- Utile pour écouter events globaux ou de services.
+## Utilisation
 
-## Patterns recommandés
-
-- Émettre des événements documentés (noms stables) depuis un service.
-- Désabonnement automatique via hook plutôt que gestion manuelle.
-
-## Exemples
-
-```js
-/** @odoo-module **/
+```javascript
 import { useBus } from "@web/core/utils/hooks";
 
-setup() {
-  useBus(this.env.bus, "MY_EVENT", (ev) => {
-    // handle
-  });
+class MyComponent extends Component {
+    setup() {
+        useBus(this.env.bus, "some-event", (event) => {
+            console.log("Événement reçu :", event);
+        });
+    }
 }
 ```
+
+## API
+`useBus(bus, eventName, callback)`
+- **bus**: L'objet EventBus cible.
+- **eventName**: Nom de l'événement.
+- **callback**: Fonction à exécuter.

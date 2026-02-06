@@ -1,11 +1,3 @@
-# module forcedemo - Force demo data install
+# Module Forcedemo Force Demo Data Install
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

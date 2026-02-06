@@ -1,5 +1,8 @@
 # Testing Odoo
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `server_framework/testing_odoo/index.md`
+This section covers details about **Testing Odoo**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

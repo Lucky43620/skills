@@ -1,11 +1,8 @@
-# Common service
+# Common Service
 
-## TL;DR
+## Overview
 
-- Résumé service + équivalent JSON-2.
+This section covers details about **Common Service**.
 
-## Exemples
-
-```text
-...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

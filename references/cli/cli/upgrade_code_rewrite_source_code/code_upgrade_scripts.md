@@ -1,11 +1,3 @@
-# Code upgrade scripts
+# Code Upgrade Scripts
 
-## TL;DR
-
-- Résumé + exemple.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

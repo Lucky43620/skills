@@ -1,29 +1,20 @@
-# Patching a javascript class
+# Patching a Javascript Class
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/patching_code.html
+For standard classes (not Components), you also patch the prototype.
 
-## TL;DR
+## Example
+Patching a utility class.
 
-- Résumé à compléter + patterns.
+```javascript
+import { SomeClass } from "@some_module/some_file";
+import { patch } from "@web/core/utils/patch";
 
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+patch(SomeClass.prototype, {
+    doSomething(arg) {
+        if (arg > 10) {
+            console.log("Big number!");
+        }
+        return super.doSomething(arg);
+    }
+});
 ```

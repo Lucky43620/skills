@@ -1,11 +1,3 @@
-# module upgrade - Upgrade modules
+# Module Upgrade Upgrade Modules
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

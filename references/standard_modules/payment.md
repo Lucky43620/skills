@@ -1,5 +1,8 @@
 # Payment
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `standard_modules/payment/index.md`
+This section covers details about **Payment**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

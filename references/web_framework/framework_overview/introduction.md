@@ -1,84 +1,31 @@
-# Introduction
+# Introduction (Web Framework)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html#introduction
 
 ## TL;DR
 
-- Le framework web Odoo fournit un client JS modulaire (assets, registries, services) pour composer des vues et actions. 
-- Basez-vous sur la structure `static/src` et les bundles d’assets pour charger votre code côté client. 
-
-## Quand l’utiliser
-
-- Quand vous devez étendre le client web (vues, widgets, services, actions). 
-- Quand vous avez besoin d’un point d’extension stable plutôt que de patcher du core. 
+- Le framework JS Odoo est une **SPA** (Single Page Application) qui tourne dans le navigateur (`/web`).
+- Il utilise **Owl** (composants modernes) et des classes natives JS.
+- Il gère l'état de l'URL et ne charge que le nécessaire (pas de rechargement complet).
+- Utilisé par le backend (web client), le site web (public), et le point de vente (PoS).
 
 ## Concepts clés
 
-- `assets`: bundles déclarés dans le manifeste, chargés par le web client. 
-- `registries`: points d’extension (vues, champs, actions, systray, services). 
-- `services`: singletons injectés via l’environnement OWL. 
-
-## API / Syntaxe
-
-- Déclarer un module JS : `/** @odoo-module **/`. 
-- Ajouter un asset dans `__manifest__.py` via `assets`. 
+- **Web Client** : L'application principale (backend) qui gère l'interface utilisateur.
+- **Frontend vs Backend** : Dans l'écosystème Odoo, "backend" désigne souvent le Web Client (interface interne) et "frontend" le site web public. Ne pas confondre avec serveur/navigateur.
+- **Owl** : Le système de composants actuel (similaire à Vue/React).
+- **Widgets** : Terme désignant les anciens composants (Legacy).
 
 ## Patterns recommandés
 
-- Créer un module dans `my_module/static/src/...` et l’ajouter à `web.assets_backend`. 
-- Utiliser un `registry` dédié (ex: `views`, `fields`, `actions`) pour enregistrer des extensions. 
+- **Tout nouveau développement doit se faire en Owl.**
+- Ne pas confondre les termes : `frontend` = site web, `backend` = interface utilisateur interne, `server` = code python.
 
-## Anti-patterns & pièges
+## Architecture Globale
 
-- Patcher un composant sans justification → privilégier un registry ou un service. 
-- Charger du JS via `web.assets_common` si l’usage est strictement back-office. 
+Le client web est une enveloppe autour de :
+- Une **NavBar**
+- Un **ActionContainer** (affiche l'action courante : client action ou vue `act_window`).
+- Un **MainComponentsContainer** (pour les composants globaux comme les dialogues, notifications).
 
-## Debug & troubleshooting
-
-- Activer le mode debug pour inspecter les assets et voir les modules chargés. 
-- Vérifier l’ordre de chargement des bundles si un module ne s’enregistre pas. 
-
-## Exemples complets
-
-```python
-# my_module/__manifest__.py
-{
-    "name": "My Module",
-    "assets": {
-        "web.assets_backend": [
-            "my_module/static/src/js/my_action.js",
-        ],
-    },
-}
-```
-
-```javascript
-// my_module/static/src/js/my_action.js
-/** @odoo-module **/
-
-import { registry } from "@web/core/registry";
-
-registry.category("actions").add("my_module.action", (env) => {
-    return {
-        type: "ir.actions.client",
-        tag: "my_module.action",
-    };
-});
-```
-
-## Checklist
-
-- [ ] Le module JS est dans `static/src`.
-- [ ] L’asset est déclaré dans le manifeste.
-- [ ] L’extension passe par un `registry` ou un `service`.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Structure du code](code_structure.md)
-- [Registres](../registries.md)
-- [Services](../services.md)
-- [Assets](../assets.md)
+La gestion des actions est centrale : le service `action` maintient une pile d'actions (breadcrumbs).

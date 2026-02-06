@@ -1,29 +1,28 @@
-# setting variables
+# Setting Variables (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+## `t-set` and `t-value`
+Defines a variable available in the current scope and its descendants.
 
-## TL;DR
-
-- Résumé à compléter + patterns.
-
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+### Syntax
+```xml
+<t t-set="my_var" t-value="record.amount * 0.2"/>
+<!-- Use it later -->
+<span t-out="my_var"/>
 ```
+
+### Body Content (Capturing)
+If `t-value` is omitted, the body of the element is rendered and assigned to the variable.
+
+```xml
+<t t-set="my_html_block">
+    <div class="card">
+        <h1>Title</h1>
+    </div>
+</t>
+
+<!-- Output the captured block -->
+<t t-out="my_html_block"/>
+```
+
+### Scope
+Variables are scoped to the element they are defined on and its children. They do not leak upwards.

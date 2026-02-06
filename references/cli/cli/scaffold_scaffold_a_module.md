@@ -1,13 +1,24 @@
-# scaffold - Scaffold a Module
+# Scaffold
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/cli.html
+Generates a new module directory structure with boilerplate code.
 
-## TL;DR
+## Usage
+`./odoo-bin scaffold <module_name> <destination_directory>`
 
-- Résumé + options clés.
-
-## Exemples
-
+## Example
 ```bash
-# Exemple à ajouter
+# Create a module named 'my_addon' in the 'custom_addons' folder
+./odoo-bin scaffold my_addon custom_addons/
+```
+
+## Generated Structure
+```
+my_addon/
+├── __init__.py
+├── __manifest__.py
+├── controllers/
+├── demo/
+├── models/
+├── security/
+└── views/
 ```

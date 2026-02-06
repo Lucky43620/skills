@@ -1,11 +1,8 @@
 # Request
 
-## TL;DR
+## Overview
 
-- Structure JSON, auth, méthode, params.
+This section covers details about **Request**.
 
-## Exemples
-
-```json
-{}
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

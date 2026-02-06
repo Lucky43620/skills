@@ -1,11 +1,3 @@
-# module uninstall - Uninstall modules
+# Module Uninstall Uninstall Modules
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

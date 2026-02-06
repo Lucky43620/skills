@@ -1,89 +1,28 @@
-# How to use it
+# How to Use It (Mobile)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
+To interact with mobile features, use the `mobile` service or `browser` methods.
 
-## TL;DR
-
-- Privilégier des composants adaptatifs et des styles responsives.
-- Encapsuler les variations mobile dans un composant ou service dédié.
-
-## Quand l’utiliser
-
-- Quand une interaction doit être simplifiée sur mobile.
-- Pour adapter des vues list/form à un écran réduit.
-
-## Concepts clés
-
-- Composants OWL réutilisables.
-- Hooks pour suivre l’état UI (scroll, focus, etc.).
-
-## API / Syntaxe
-
-- `Component` OWL + classes CSS conditionnelles.
-- `@odoo-module` pour modules JS.
-
-## Patterns recommandés
-
-- Créer un composant `Card` qui s’adapte via props.
-- Utiliser une classe `o_mobile_*` pour piloter les styles.
-
-## Anti-patterns & pièges
-
-- Gérer des tailles en JS plutôt que CSS.
-- Ajouter des assets mobile dans un bundle backend global.
-
-## Debug & troubleshooting
-
-- Tester le responsive mode du navigateur.
-- Vérifier le chargement de `scss` dans le bundle backend.
-
-## Exemples complets
-
+## Scanning Barcodes
 ```javascript
-// my_module/static/src/js/responsive_card.js
-/** @odoo-module **/
-
-import { Component } from "@odoo/owl";
-
-export class ResponsiveCard extends Component {
-    static props = { title: String };
+const mobile = useService("mobile");
+if (mobile.methods.scanBarcode) {
+    const code = await mobile.methods.scanBarcode();
 }
 ```
 
-```xml
-<!-- my_module/static/src/xml/responsive_card.xml -->
-<t t-name="my_module.ResponsiveCard" owl="1">
-    <div class="o_responsive_card">
-        <h3><t t-esc="props.title"/></h3>
-        <t t-slot="default"/>
-    </div>
-</t>
+## Vibrate
+```javascript
+import { browser } from "@web/core/browser/browser";
+// Uses HTML5 Vibration API, mapped to native by the app
+browser.navigator.vibrate(200); 
 ```
 
-```scss
-/* my_module/static/src/scss/responsive_card.scss */
-.o_responsive_card {
-    padding: 16px;
-}
-@media (max-width: 768px) {
-    .o_responsive_card {
-        padding: 8px;
-    }
-}
+## Back Button
+You can listen to the hardware back button (Android):
+```javascript
+import { useBackButon } from "@web/core/utils/hooks";
+
+useBackButon(() => {
+    this.closeDialog();
+});
 ```
-
-## Checklist
-
-- [ ] Composant unique avec props adaptatives.
-- [ ] Styles responsives dans `scss`.
-- [ ] Pas de duplication de logique.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/mobile_javascript.html
-
-## Voir aussi
-
-- [Owl components](../owl_components.md)
-- [Hooks](../hooks.md)
-- [Assets](../assets.md)

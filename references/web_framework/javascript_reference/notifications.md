@@ -1,27 +1,24 @@
-# Notifications
+# Notifications (JS)
 
-## TL;DR
+Notifications (Toasters) are managed by the `notification` service.
 
-- Résumé à compléter + patterns.
+## Usage
+```javascript
+setup() {
+    this.notification = useService("notification");
+}
 
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+showError() {
+    this.notification.add("Something went wrong", {
+        title: "Error",
+        type: "danger", // 'info', 'warning', 'danger', 'success'
+        sticky: true,
+    });
+}
 ```
+
+## Options
+*   `title`: Bold header.
+*   `type`: Color scheme.
+*   `sticky`: If true, user must dismiss it manually.
+*   `className`: Custom CSS class.

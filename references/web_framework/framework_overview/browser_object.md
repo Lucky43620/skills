@@ -1,67 +1,34 @@
-# Browser object
+# Browser Object
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html#browser-object
 
 ## TL;DR
 
-- Le navigateur expose des APIs (localStorage, history, fetch) à utiliser avec prudence.
-- Odoo privilégie des abstractions (`services`) pour la navigation et les RPC.
+Odoo encapsule les APIs natives du navigateur (`window`, `localStorage`, `setTimeout`) dans un objet `browser` pour faciliter le **Mocking** lors des tests.
 
-## Quand l’utiliser
+## Pourquoi ?
+Si vous utilisez `window.setTimeout` directement dans votre code, vos tests unitaires devront attendre le délai réel, ou vous devrez monkey-patcher `window` (risqué).
+Avec `browser.setTimeout`, un test peut simplement remplacer `browser.setTimeout` par une fonction immédiate sans affecter l'environnement global.
 
-- Pour des besoins spécifiques (Storage local, Clipboard, History).
-- Quand aucun service Odoo ne couvre le besoin.
-
-## Concepts clés
-
-- `window`, `document` et APIs DOM.
-- Limiter l’accès direct pour éviter les conflits avec le web client.
-
-## API / Syntaxe
-
-- Navigation : privilégier `env.services.action` ou `router` Odoo.
-- Storage : `localStorage.getItem(...)` en fallback.
-
-## Patterns recommandés
-
-- Encapsuler l’usage du navigateur dans un service dédié.
-- Vérifier la disponibilité (`if ("clipboard" in navigator)`).
-
-## Anti-patterns & pièges
-
-- Manipuler le DOM hors cycle OWL.
-- Accéder à `window` dans des modules exécutés côté serveur (SSR tests).
-
-## Debug & troubleshooting
-
-- Tester les fonctionnalités dans un navigateur compatible.
-- Ajouter des guards pour éviter les erreurs SSR.
-
-## Exemples complets
+## Usage
 
 ```javascript
-// my_module/static/src/js/browser_storage.js
-/** @odoo-module **/
+import { browser } from "@web/core/browser/browser";
 
-export function saveDraft(key, value) {
-    if (window?.localStorage) {
-        window.localStorage.setItem(key, value);
-    }
-}
+// Au lieu de setTimeout(fn, 1000)
+browser.setTimeout(() => {
+    console.log("Delayed");
+}, 1000);
+
+// Au lieu de localStorage.setItem
+browser.localStorage.setItem("key", "value");
 ```
 
-## Checklist
-
-- [ ] L’accès au navigateur est encapsulé.
-- [ ] Des guards de compatibilité sont présents.
-- [ ] Pas de manipulation DOM directe hors OWL.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Services](../services.md)
-- [Hooks](../hooks.md)
-- [Error handling](../error_handling.md)
+## APIs exposées
+- `addEventListener`, `removeEventListener`
+- `setTimeout`, `clearTimeout`, `setInterval`, `clearInterval`
+- `fetch`, `XMLHttpRequest`
+- `localStorage`, `sessionStorage`
+- `location`, `history`, `navigator`
+- `console`
+- `Date` (utile pour mocker le temps!)

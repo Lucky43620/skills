@@ -1,78 +1,31 @@
-# Bus
+# Bus (EventBus)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html#bus
 
 ## TL;DR
 
-- Le bus permet des notifications temps réel (chatter, updates).
-- Utilisez le service bus plutôt qu’un polling maison.
+Le `env.bus` est un bus d'événements global pour coordonner l'interface sans couplage fort.
 
-## Quand l’utiliser
-
-- Pour réagir à des événements serveur (notifications).
-- Pour synchroniser des vues en temps réel.
-
-## Concepts clés
-
-- `bus_service`: service côté client pour s’abonner aux canaux.
-- Canaux typiques : base sur `db`, `uid`, `channel`.
-
-## API / Syntaxe
-
-- Souscription via service (`env.services.bus_service`).
-- Handler : fonction appelée à la réception.
-
-## Patterns recommandés
-
-- Centraliser la souscription dans un service.
-- Nettoyer les handlers lors du `destroy` du composant.
-
-## Anti-patterns & pièges
-
-- S’abonner dans chaque composant sans cleanup.
-- Utiliser le bus pour des données volumineuses.
-
-## Debug & troubleshooting
-
-- Vérifier que les canaux sont bien enregistrés.
-- Logger les payloads reçus.
-
-## Exemples complets
+## Usage
 
 ```javascript
-// my_module/static/src/js/bus_subscriber.js
-/** @odoo-module **/
+// Écouter un événement
+env.bus.on("WEB_CLIENT_READY", null, () => {
+    console.log("Odoo is ready");
+});
 
-import { registry } from "@web/core/registry";
-
-const busSubscriber = {
-    start(env) {
-        const bus = env.services.bus_service;
-        bus.addChannel("my_module_channel");
-        bus.onNotification((notifications) => {
-            for (const { payload } of notifications) {
-                env.services.notification.add(payload.message);
-            }
-        });
-        return {};
-    },
-};
-
-registry.category("services").add("my_module_bus", busSubscriber);
+// Déclencher (rare pour le dev standard, plutôt réservé au framework)
+env.bus.trigger("MY_EVENT", payload);
 ```
 
-## Checklist
+## Événements Principaux
 
-- [ ] Canaux explicitement déclarés.
-- [ ] Handlers nettoyés si nécessaire.
-- [ ] Pas d’abus pour des payloads lourds.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Services](../services.md)
-- [Hooks](../hooks.md)
-- [Error handling](../error_handling.md)
+| Événement | Payload | Description |
+| :--- | :--- | :--- |
+| `WEB_CLIENT_READY` | - | Le WebClient est monté. |
+| `RPC:REQUEST` | rpcId | Une requête RPC démarre. |
+| `RPC:RESPONSE` | rpcId | Une requête RPC est terminée. |
+| `route_change` | - | L'URL (hash) a changé. |
+| `ACTION_MANAGER:UI-UPDATED` | mode | L'interface d'action a été mise à jour. |
+| `MENUS:APP-CHANGED` | - | L'utilisateur a changé d'application racine. |
+| `CLEAR-CACHES` | - | Demande de vider les caches locaux. |

@@ -1,60 +1,61 @@
 # Models (ORM API)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/orm.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/backend/orm.html#models
 
-## TL;DR
-
-- Définis un modèle via une classe Python (`models.Model` / `TransientModel` / `AbstractModel`).
-- Les champs sont des attributs de classe (attention collisions champ/méthode).
-- Le recordset est l’unité de travail : méthodes appelées sur `self` (multi-record).
-
-## Concepts clés
-
-- `_name`, `_description`, `_inherit`, `_inherits` (héritage / extension / composition).
-- `_rec_name`, `_order`, `_check_company_auto`, `_parent_store` (arborescences).
-- Modèles persistants vs transients (vacuum) vs abstraits.
-
-## Patterns recommandés
-
-- Toujours écrire les méthodes ORM en supportant `self` multi-record (boucle `for rec in self:`).
-- Utiliser `ensure_one()` quand la logique exige un seul enregistrement.
-- Préférer des champs stockés + index adaptés quand la recherche est fréquente.
-
-## Pièges fréquents
-
-- Champ et méthode avec le même nom : le dernier défini écrase l’autre sans erreur visible.
-- Oublier `@api.depends` sur un compute (recalcul incomplet / non déclenché).
-- Utiliser des variables globales mutables (multi-db dans un même process).
-
-## Checklist
-
-- [ ] Créer `models/__init__.py` + importer le fichier du modèle.
-- [ ] Ajouter `security/ir.model.access.csv`.
-- [ ] Ajouter views + action + menu, et déclarer dans `__manifest__.py`.
-- [ ] Tester création/édition + droits sur un utilisateur non-admin.
-
-## Exemples
+## AbstractModel
+`odoo.models.AbstractModel`
+Modèle abstrait utilisé pour partager du comportement. Ne crée pas de table en base.
+Souvent utilisé pour les Mixins (ex: `mail.thread`, `image.mixin`).
 
 ```python
-from odoo import models, fields, api
-
-class EstateProperty(models.Model):
-    _name = 'estate.property'
-    _description = 'Property'
-    _order = 'id desc'
-
-    name = fields.Char(required=True)
-    active = fields.Boolean(default=True)
-    expected_price = fields.Float()
-
-    @api.depends('expected_price')
-    def _compute_display_name(self):
-        for rec in self:
-            rec.display_name = f"{rec.name} ({rec.expected_price})"
+class MyMixin(models.AbstractModel):
+    _name = 'my.mixin'
+    _description = 'Description du Mixin'
 ```
 
-## Voir aussi
+## Model
+`odoo.models.Model`
+Modèle persistant standard. Crée une table en base (sauf si `_auto = False`).
 
-- `assets/templates/server/orm_model.py` (template)
-- ../security_in_odoo/access_rights.md
-- ../../02_playbooks/WORLDFLOWS.md
+```python
+class MyModel(models.Model):
+    _name = 'my.model'
+    _description = 'Mon Modèle'
+    _order = 'date desc, id'
+```
+
+### Attributs Clés
+- `_name` (str): Identifiant unique (ex: `res.partner`). Requis.
+- `_description` (str): Label convivial.
+- `_inherit` (str/list): Modèle(s) parent(s) pour héritage/extension.
+- `_rec_name` (str): Champ utilisé pour l'affichage (défaut: `name`).
+- `_order` (str): Ordre de tri par défaut (défaut: `id`).
+- `_check_company_auto` (bool): Active la validation multi-société automatique.
+- `_sql_constraints` (list): Contraintes SQL [(name, sql_def, message)].
+
+## TransientModel
+`odoo.models.TransientModel`
+Modèle temporaire (Wizards).
+- Données nettoyées périodiquement.
+- Pas de droits d'accès stricts requis (souvent accessible à tous les utilisateurs internes).
+- Idéal pour les pop-ups de configuration ou d'action.
+
+```python
+class MyWizard(models.TransientModel):
+    _name = 'my.wizard'
+```
+
+## Héritage
+
+### Classique (`_name` + `_inherit`)
+Crée une nouvelle table copiant la structure du parent.
+Semblable à l'héritage objet.
+
+### Extension (`_inherit` sans `_name`)
+Modifie le modèle existant "en place".
+Ajoute des champs ou surcharge des méthodes sur le modèle d'origine.
+C'est le mécanisme standard pour personnaliser Odoo.
+
+### Délégation (`_inherits`)
+Héritage multiple par délégation (rarement utilisé directement, préférez `delegate=True` sur Many2one).
+Chaque enregistrement est lié à un enregistrement du parent.

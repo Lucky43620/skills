@@ -1,59 +1,46 @@
-# Using Owl components (Odoo)
+# Using Owl Components
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/owl_components.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/owl_components.html#using-owl-components
 
 ## TL;DR
 
-- Les composants OWL sont la base du webclient : classes + template QWeb, `setup()` pour initialiser.
-- L’accès aux services se fait via `useService()` et aux hooks via `@web/core/utils/hooks`.
-- On enregistre l’intégration via registries (fields, views, systray, etc.).
+Odoo utilise Owl (Odoo Web Library). Les composants sont des classes étendant `Component`.
+Le template XML doit être défini séparément (pour la traduction) et référencé via `static template`.
 
-## Concepts clés
+## Structure Standard
 
-- Cycle de vie : `setup()`, hooks, état local, props, events.
-- Templates : XML dans assets, nommage stable et unique.
-- Environment Odoo : `env` (services, config, bus…).
+**mon_composant.js**
+```javascript
+import { Component, useState } from "@odoo/owl";
 
-## Patterns recommandés
+export class MyComponent extends Component {
+    static template = "my_addon.MyComponent";
 
-- Séparer logique (JS) et template (XML), organiser par feature.
-- Éviter le state global; préférer services ou store.
-- Pour modifications : patcher `setup()` plutôt qu’un constructor.
+    setup() {
+        this.state = useState({ value: 1 });
+    }
 
-## Pièges fréquents
-
-- Template non chargé (xml pas dans bundle).
-- Utiliser des APIs OWL sans passer par conventions Odoo (services/registries).
-
-## Exemples
-
-```js
-/** @odoo-module **/
-import { Component } from "@odoo/owl";
-import { useService } from "@web/core/utils/hooks";
-
-export class Hello extends Component {
-  setup() {
-    this.notification = useService("notification");
-  }
-  sayHi() {
-    this.notification.add("Salut !");
-  }
+    increment() {
+        this.state.value++;
+    }
 }
-Hello.template = "my_addon.Hello";
 ```
 
+**mon_composant.xml**
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-  <t t-name="my_addon.Hello">
-    <button type="button" t-on-click="sayHi">Hello</button>
-  </t>
+    <t t-name="my_addon.MyComponent">
+        <div t-on-click="increment">
+            <t t-esc="state.value"/>
+        </div>
+    </t>
 </templates>
 ```
 
-## Voir aussi
+## Convention de Nommage
+Les noms de templates doivent suivre le format : `nom_addon.NomComposant`.
+Exemple : `account.AgedReceivable`.
 
-- ../services/using_a_service.md
-- ../registries/reference_list.md
-- ../hooks/usebus.md
+## Assets
+Odoo charge automatiquement les fichiers JS/XML s'ils sont dans le bon bundle (souvent `web.assets_backend`).

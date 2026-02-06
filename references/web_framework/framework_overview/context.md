@@ -1,71 +1,39 @@
-# Context
+# Context (JS)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+The **Context** in Odoo JS is a plain object used to carry user preferences (language, timezone) and specific action parameters (default values, active filters) during RPC calls.
 
-## TL;DR
-
-- Le `context` est un dictionnaire transmis aux actions, vues et RPC.
-- Il transporte des flags fonctionnels (langue, tz, defaults).
-
-## Quand l’utiliser
-
-- Pour fournir des valeurs par défaut ou filtrer des comportements.
-- Pour aligner front et server via `context` dans les appels ORM.
-
-## Concepts clés
-
-- `context` est fusionné (session + action + view + caller).
-- Les clés standard (`lang`, `tz`, `uid`) coexistent avec des clés métier.
-
-## API / Syntaxe
-
-- ORM JS : `this.env.services.orm.call(model, method, args, { context })`.
-- Action : `this.env.services.action.doAction(action, { additionalContext })`.
-
-## Patterns recommandés
-
-- Nommer les clés custom en préfixant (`my_module_...`).
-- Éviter d’écraser des clés standards.
-
-## Anti-patterns & pièges
-
-- Passer des objets lourds dans le `context`.
-- Utiliser le `context` comme stockage persistant.
-
-## Debug & troubleshooting
-
-- Inspecter `action.context` dans le mode debug.
-- Logger le `context` au niveau des `rpc`.
-
-## Exemples complets
-
+## Structure
+A typical context object looks like:
 ```javascript
-// my_module/static/src/js/open_partner.js
-/** @odoo-module **/
-
-export async function openPartner(env, partnerId) {
-    await env.services.action.doAction("base.action_partner_form", {
-        additionalContext: {
-            default_is_company: true,
-            my_module_source: "dashboard",
-        },
-        additionalDomain: [["id", "=", partnerId]],
-    });
+{
+    "lang": "fr_FR",
+    "tz": "Europe/Paris",
+    "uid": 2,
+    "allowed_company_ids": [1],
+    "default_partner_id": 15,
+    "active_id": 5,
+    "active_model": "sale.order"
 }
 ```
 
-## Checklist
+## Usage in RPC
+When making calls to the server (ORM), the context is usually passed as a keyword argument.
 
-- [ ] Les clés custom sont préfixées.
-- [ ] Les `context` sont limités à des données légères.
-- [ ] Les actions vérifient les clés attendues.
+```javascript
+/* Using the ORM service */
+await this.orm.call("res.partner", "search", [[["is_company", "=", true]]], {
+    context: {
+        ...this.user.context,
+        default_is_company: true,
+    },
+});
+```
 
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Actions JS](../javascript_reference/client_actions.md)
-- [Services](../services.md)
-- [ORM API (server)](../../server_framework/orm_api.md)
+## User Context
+You can access the current user's global context via the `user` service.
+```javascript
+setup() {
+    this.user = useService("user");
+    console.log(this.user.context);
+}
+```

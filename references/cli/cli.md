@@ -1,5 +1,3 @@
-# Command-line interface (CLI)
+# Cli
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
-
-➡️ Ouvre : `cli/cli/index.md`
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

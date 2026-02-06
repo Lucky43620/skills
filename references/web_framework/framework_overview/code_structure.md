@@ -1,78 +1,25 @@
-# Code structure
+# Code Structure
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html#code-structure
 
 ## TL;DR
 
-- Les modules front suivent une structure `static/src` pour JS, XML, SCSS.
-- Les assets sont déclarés dans `__manifest__.py` par bundle.
+- Tout le code JS/CSS/Templates se trouve dans `web/static/src`.
+- Les imports utilisent l'alias `@web`.
 
-## Quand l’utiliser
+## Structure des dossiers (`web/static/src`)
 
-- Pour organiser un module front Odoo et éviter les imports implicites.
-- Pour diagnostiquer un module non chargé.
+- `core/` : Fonctionnalités bas niveau (bus, registry, user service, utils...).
+- `fields/` : Tous les composants de champs (Char, Integer, Many2one...).
+- `views/` : Composants des vues (Form, List, Kanban...).
+- `search/` : Control panel, barre de recherche, panneau de recherche.
+- `webclient/` : Code spécifique au client web (NavBar, UserMenu, ActionService).
 
-## Concepts clés
+## Imports
 
-- `static/src/js`: modules JS (`/** @odoo-module **/`).
-- `static/src/xml`: templates QWeb/OWL.
-- `static/src/scss`: styles du backend.
+Tout fichier dans `web/static/src` peut être importé via le préfixe `@web`.
 
-## API / Syntaxe
-
-- Déclaration d’assets : `"web.assets_backend": [...]`.
-- Template OWL : `t-name="my_module.MyComponent"`.
-
-## Patterns recommandés
-
-- Un fichier par composant (`.js` + `.xml` + `.scss`).
-- Des chemins explicites dans le manifeste.
-
-## Anti-patterns & pièges
-
-- Mélanger JS backend et website dans le même bundle.
-- Oublier d’ajouter un template XML au bundle correspondant.
-
-## Debug & troubleshooting
-
-- Vérifier le bundle dans le mode debug assets.
-- Contrôler les imports relatifs avec `@web/` et `@odoo/`.
-
-## Exemples complets
-
-```text
-my_module/
-  static/src/
-    js/my_component.js
-    xml/my_component.xml
-    scss/my_component.scss
+**Exemple :**
+```javascript
+import { memoize } from "@web/core/utils/functions";
 ```
-
-```python
-# my_module/__manifest__.py
-{
-    "assets": {
-        "web.assets_backend": [
-            "my_module/static/src/js/my_component.js",
-            "my_module/static/src/xml/my_component.xml",
-            "my_module/static/src/scss/my_component.scss",
-        ],
-    },
-}
-```
-
-## Checklist
-
-- [ ] `static/src` contient JS, XML, SCSS.
-- [ ] Chaque fichier est référencé dans le bon bundle.
-- [ ] Les templates OWL sont chargés avant l’usage.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Assets](../assets.md)
-- [Modules JavaScript](../javascript_modules.md)
-- [Owl components](../owl_components.md)

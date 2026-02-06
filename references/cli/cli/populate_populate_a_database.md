@@ -1,13 +1,15 @@
-# populate - Populate a Database
+# Populate (Test Data)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/cli.html
+Automatically fills a database with random test data based on models. Useful for performance testing or demos.
 
-## TL;DR
+## Usage
+`./odoo-bin populate -d <database> --model <model_name> --size <size>`
 
-- Résumé + options clés.
+## Options
+*   `--model`: Specific model to populate (e.g., `res.partner`). If omitted, populates all.
+*   `--size`: `small`, `medium`, `large`. Controls the volume of data.
 
-## Exemples
-
+## Example
 ```bash
-# Exemple à ajouter
+./odoo-bin populate -d mydb --model res.partner --size small
 ```

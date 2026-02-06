@@ -1,5 +1,8 @@
 # Upgrades
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `upgrades/index.md`
+This section covers details about **Upgrades**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

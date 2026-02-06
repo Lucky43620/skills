@@ -1,29 +1,22 @@
-# Powerbox
+# Powerbox (Odoo Editor)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/odoo_editor.html
+The **Powerbox** is the command palette that appears when you type `/` in the Odoo HTML Editor (Wysiwyg).
 
-## TL;DR
+## Adding Commands
+You register commands in the `html_field_commands` category.
 
-- Résumé à compléter + patterns.
+```javascript
+import { registry } from "@web/core/registry";
 
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+registry.category("html_field_commands").add("my_command", {
+    name: "Insert Quote",
+    icon: "fa-quote-left",
+    description: "Insert a blockquote",
+    run: (editor) => {
+        editor.execCommand("insertHtml", "<blockquote>Quote</blockquote>");
+    },
+});
 ```
+
+## Categories
+Commands can be grouped (e.g., 'Format', 'Structure', 'Widgets').

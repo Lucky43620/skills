@@ -1,29 +1,33 @@
 # Applying the same patch to multiple objects
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/patching_code.html
+Sometimes you want to add the same behavior (e.g., logging, tracking) to multiple classes.
 
-## TL;DR
+## Helper Function Approach
+Create a helper that applies the patch.
 
-- Résumé à compléter + patterns.
+```javascript
+import { patch } from "@web/core/utils/patch";
 
-## Concepts clés
+function patchWithLogger(ClassToPatch) {
+    patch(ClassToPatch.prototype, {
+        setup() {
+            super.setup();
+            console.log("Setup called on", ClassToPatch.name);
+        }
+    });
+}
 
-- Concepts clés.
+// Usage
+patchWithLogger(ListController);
+patchWithLogger(KanbanController);
+```
 
-## Patterns recommandés
+## Loop Approach
+If you have a list of classes:
+```javascript
+const Controllers = [ListController, KanbanController, FormController];
 
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+for (const C of Controllers) {
+    patch(C.prototype, { ... });
+}
 ```

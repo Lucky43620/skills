@@ -1,29 +1,26 @@
 # useAutofocus
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html#useautofocus
+> Location: `@web/core/utils/hooks`
 
-## TL;DR
+## Description
+Place le focus sur un élément référencé par `t-ref="autofocus"` dès qu'il apparaît dans le DOM (si pas déjà affiché).
 
-- Résumé à compléter + patterns.
+## Utilisation
 
-## Concepts clés
+```javascript
+import { useAutofocus } from "@web/core/utils/hooks";
 
-- Concepts clés.
+class Comp extends Component {
+    setup() {
+        this.inputRef = useAutofocus();
+    }
+    static template = "Comp";
+}
+```
 
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+```xml
+<t t-name="Comp">
+    <input t-ref="autofocus" type="text"/>
+</t>
 ```

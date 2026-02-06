@@ -1,29 +1,8 @@
 # useAssets
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/hooks.html#useassets
+> Location: `@web/core/assets`
 
-## TL;DR
-
-- Résumé à compléter + patterns.
-
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
-```
+## Description
+Ce hook est lié au chargement asynchrone ("lazy loading") des assets.
+Voir la section [Assets - Lazy Loading](../assets/lazy_loading.md) pour plus de détails.

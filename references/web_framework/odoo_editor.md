@@ -1,5 +1,8 @@
 # Odoo Editor
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `web_framework/odoo_editor/index.md`
+This section covers details about **Odoo Editor**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

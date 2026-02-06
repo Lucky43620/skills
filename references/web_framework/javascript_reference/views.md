@@ -1,27 +1,15 @@
-# Views
+# Views (JS Reference)
 
-## TL;DR
+In the frontend, a "View" is the combination of:
+1.  **Controller:** Handles logic (search, paging, buttons).
+2.  **Renderer:** Displays the data (table, cards).
+3.  **Model:** Manages the state (loading data from server).
+4.  **Arch Parser:** Parses the XML architecture.
 
-- Résumé à compléter + patterns.
+## Standard Views
+*   **List:** `ListController`, `ListRenderer`.
+*   **Form:** `FormController`, `FormRenderer`.
+*   **Kanban:** `KanbanController`, `KanbanRenderer`.
 
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
-```
+## Registry
+Views are registered in `registry.category("views")`.

@@ -1,70 +1,37 @@
-# Debug mode
+# Debug Mode
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html#debug-mode
 
 ## TL;DR
 
-- Le mode debug expose les assets, les vues et les actions pour diagnostiquer. 
-- Il facilite l’inspection des registries et des templates chargés. 
+Le mode debug active des outils développeur et affiche plus d'infos (noms techniques des champs). Il est stocké dans l'URL (`?debug=1` ou `?debug=assets`).
 
-## Quand l’utiliser
+## Accès JS
 
-- Quand un module JS n’est pas chargé.
-- Pour inspecter les bundles ou recharger en mode non minifié.
-
-## Concepts clés
-
-- `?debug=assets`: charge les fichiers source séparés.
-- `?debug=1`: active la barre debug et l’inspection.
-
-## API / Syntaxe
-
-- Accès : ajouter `?debug=assets` à l’URL.
-- Côté JS : activer des logs conditionnels.
-
-## Patterns recommandés
-
-- Utiliser `debug=assets` lors du développement front.
-- Garder des logs `console.debug` derrière un flag.
-
-## Anti-patterns & pièges
-
-- Laisser des logs bruyants en production.
-- Dépendre d’un comportement de debug pour des features.
-
-## Debug & troubleshooting
-
-- Vérifier que le bundle contient le fichier souhaité.
-- Inspecter les templates QWeb chargés.
-
-## Exemples complets
-
-```text
-https://odoo.local/web?debug=assets
-```
+Accessible via `env.debug` (string).
+- `""` (vide) : Inactif.
+- `"1"`, `"assets"`, `"tests"`, `"assets,tests"` : Actif.
 
 ```javascript
-// my_module/static/src/js/logger.js
-/** @odoo-module **/
-
-const isDebug = new URLSearchParams(window.location.search).get("debug");
-if (isDebug) {
-    console.debug("Mode debug actif");
+if (this.env.debug) {
+    console.log("Debug mode is on");
 }
 ```
 
-## Checklist
+## Modes spécifiques
 
-- [ ] URL en `debug=assets` pour diagnostiquer.
-- [ ] Les bundles sont inspectés.
-- [ ] Pas de logs restants en prod.
+### Debug Assets (`debug=assets`)
+- Désactive la minification des assets (JS/CSS).
+- Génère les Source Maps.
+- Indispensable pour déboguer le code JS dans le navigateur.
 
-## Liens officiels
+### Debug Tests (`debug=tests`)
+- Active les outils liés aux tests (ex: tours).
 
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+## Visibilité XML
 
-## Voir aussi
+Pour afficher un champ ou bouton *uniquement* en mode debug, utiliser le groupe technique "No One" (si possible) ou vérifier le contexte (mais `base.group_no_one` est la convention).
 
-- [Assets](../assets.md)
-- [Error handling](../error_handling.md)
-- [Modules JavaScript](../javascript_modules.md)
+```xml
+<field name="fname" groups="base.group_no_one"/>
+```

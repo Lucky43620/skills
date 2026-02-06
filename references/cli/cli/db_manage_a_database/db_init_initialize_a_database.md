@@ -1,11 +1,3 @@
-# db init - Initialize a Database
+# Db Init Initialize A Database
 
-## TL;DR
-
-- Commande DB - exemple d'usage + pièges.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

@@ -1,5 +1,8 @@
 # Javascript Reference
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `web_framework/javascript_reference/index.md`
+This section covers details about **Javascript Reference**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

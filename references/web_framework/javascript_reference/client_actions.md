@@ -1,27 +1,27 @@
-# Client actions
+# Client Actions (`ir.actions.client`)
 
-## TL;DR
+Client actions trigger the execution of arbitrary Javascript code (a Component) within the web client, without simply loading a view.
 
-- Résumé à compléter + patterns.
+## Definition
+1.  **Register:** Register your component in the `actions` registry.
+2.  **Define:** Create an `ir.actions.client` record in XML.
 
-## Concepts clés
+## JS Side
+```javascript
+import { registry } from "@web/core/registry";
+import { Component } from "@odoo/owl";
 
-- Concepts clés.
+class MyClientAction extends Component {
+    static template = "my_module.template";
+}
 
-## Patterns recommandés
+registry.category("actions").add("my_module.my_action_tag", MyClientAction);
+```
 
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+## XML Side
+```xml
+<record id="action_my_client" model="ir.actions.client">
+    <field name="name">My Dashboard</field>
+    <field name="tag">my_module.my_action_tag</field>
+</record>
 ```

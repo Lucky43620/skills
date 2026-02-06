@@ -1,74 +1,31 @@
-# Environment
+# Environment (JS)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+In the Odoo Web Framework (Owl), the **Environment** is a central object that contains all the active services and the event bus. It is accessible from any component.
 
-## TL;DR
+## Accessing the Environment
 
-- L’environnement (`env`) OWL expose les services, la session et les contextes.
-- Toujours passer par `env.services` pour accéder aux API du client.
-
-## Quand l’utiliser
-
-- Quand un composant a besoin d’ORM, d’actions, de notifications.
-- Pour partager des infos via `env` dans des composants enfants.
-
-## Concepts clés
-
-- `env.services`: accès aux services (`orm`, `rpc`, `action`, `notification`).
-- `env.session`: informations de session utilisateur.
-- `env.config`: paramètres du client.
-
-## API / Syntaxe
-
-- Injection : `setup()` → `this.env` dans un composant OWL.
-- Services : `this.env.services.orm.searchRead(...)`.
-
-## Patterns recommandés
-
-- Centraliser les appels RPC dans un service dédié.
-- Utiliser `env` pour éviter les imports circulaires.
-
-## Anti-patterns & pièges
-
-- Stocker des états globaux hors `env`.
-- Lire `window` pour obtenir des infos déjà disponibles dans `env`.
-
-## Debug & troubleshooting
-
-- Logguer `Object.keys(env.services)` pour voir les services disponibles.
-- Vérifier la présence du service dans le registry.
-
-## Exemples complets
-
+### In a Component
 ```javascript
-// my_module/static/src/js/my_component.js
-/** @odoo-module **/
-
 import { Component } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
-export class MyComponent extends Component {
+class MyComponent extends Component {
     setup() {
-        this.orm = this.env.services.orm;
-    }
-
-    async loadPartners() {
-        return this.orm.searchRead("res.partner", [], ["name"]);
+        // Access a specific service
+        this.rpc = useService("rpc");
+        
+        // Access the raw environment (rarely needed directly)
+        console.log(this.env);
     }
 }
 ```
 
-## Checklist
+## Contents
+The environment typically contains:
+*   `services`: The registry of active services (orm, rpc, action, etc.).
+*   `bus`: The main event bus for the application.
+*   `qweb`: The rendering engine context.
+*   `_t`: The translation function.
 
-- [ ] Les services sont injectés via `env`.
-- [ ] Les accès session passent par `env.session`.
-- [ ] Les appels RPC sont centralisés.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
-
-## Voir aussi
-
-- [Services](../services.md)
-- [Hooks](../hooks.md)
-- [Error handling](../error_handling.md)
+## Hierarchy
+The environment is propagated down the component tree. A component can create a *child environment* to override specific values for its descendants, though this is an advanced use case.

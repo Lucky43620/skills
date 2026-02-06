@@ -1,17 +1,8 @@
 # Database
 
-## TL;DR
+## Overview
 
-- Notes de configuration.
+This section covers details about **Database**.
 
-## Checklist
-
-- [ ] Créer API key
-- [ ] Vérifier ACL
-- [ ] Tester sur base de staging
-
-## Exemples
-
-```text
-...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

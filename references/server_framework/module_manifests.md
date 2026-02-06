@@ -1,5 +1,8 @@
 # Module Manifests
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `server_framework/module_manifests/index.md`
+This section covers details about **Module Manifests**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

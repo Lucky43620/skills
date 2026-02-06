@@ -1,5 +1,8 @@
 # Registries
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `web_framework/registries/index.md`
+This section covers details about **Registries**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

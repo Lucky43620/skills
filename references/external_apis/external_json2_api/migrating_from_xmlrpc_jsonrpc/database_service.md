@@ -1,11 +1,8 @@
-# Database service
+# Database Service
 
-## TL;DR
+## Overview
 
-- Résumé service + équivalent JSON-2.
+This section covers details about **Database Service**.
 
-## Exemples
-
-```text
-...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

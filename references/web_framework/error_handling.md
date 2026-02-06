@@ -1,5 +1,8 @@
-# Error handling
+# Error Handling
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `web_framework/error_handling/index.md`
+This section covers details about **Error Handling**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

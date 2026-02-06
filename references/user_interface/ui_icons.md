@@ -1,5 +1,8 @@
-# UI icons
+# Ui Icons
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `user_interface/ui_icons/index.md`
+This section covers details about **Ui Icons**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

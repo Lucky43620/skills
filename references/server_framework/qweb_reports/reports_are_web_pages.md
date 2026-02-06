@@ -1,33 +1,9 @@
-# Reports are web pages
+# Reports are Web Pages
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/reports.html
+Reports are dynamically generated web pages. You can access them directly via URL for easier debugging (inspect element, check layout without PDF conversion).
 
-## TL;DR
+*   **HTML Mode:** `http://<server-address>/report/html/<report_xml_id>/<record_ids>`
+*   **PDF Mode:** `http://<server-address>/report/pdf/<report_xml_id>/<record_ids>`
 
-- Résumé à compléter avec la règle, les API, et les patterns Odoo v19 associés.
-
-## Concepts clés
-
-- Définitions et concepts liés à la sous-rubrique.
-
-## Patterns recommandés
-
-- Patterns / snippets recommandés.
-
-## Pièges fréquents
-
-- Pièges courants, erreurs typiques et comment les éviter.
-
-## Checklist
-
-- [ ] Étapes minimales pour implémenter correctement.
-
-## Exemples
-
-```text
-# Ajoute ici des exemples pertinents.
-```
-
-## Voir aussi
-
-- (voir index de la section)
+**Example:**
+`http://localhost:8069/report/html/sale.report_saleorder/1`

@@ -1,13 +1,14 @@
-# cloc - Count Lines of Code
+# Cloc (Count Lines of Code)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/cli.html
+Odoo includes a tool to count the lines of custom code in a database. This is used for Odoo.sh or Enterprise licensing calculations.
 
-## TL;DR
+## Usage
+`./odoo-bin cloc -d <database_name>`
+`./odoo-bin cloc -p <path_to_module>`
 
-- Résumé + options clés.
+## Rules
+*   **Excluded:** Empty lines, comments, standard Odoo modules, manifest files.
+*   **Included:** Python, JS, XML, CSS/SCSS in custom addons.
 
-## Exemples
-
-```bash
-# Exemple à ajouter
-```
+## Output
+It prints a breakdown of lines by type (Python, XML, JS) and a total.

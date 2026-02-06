@@ -1,5 +1,8 @@
 # External Rpc Api
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `external_apis/index.md`
+This section covers details about **External Rpc Api**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

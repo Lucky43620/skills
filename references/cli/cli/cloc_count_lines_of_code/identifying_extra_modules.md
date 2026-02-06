@@ -1,11 +1,3 @@
-# cloc: Identifying Extra Modules
+# Identifying Extra Modules
 
-## TL;DR
-
-- Résumé + exemple.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

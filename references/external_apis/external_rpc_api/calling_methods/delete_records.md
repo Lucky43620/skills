@@ -1,11 +1,8 @@
-# Delete records
+# Delete Records
 
-## TL;DR
+## Overview
 
-- Résumé + exemple.
+This section covers details about **Delete Records**.
 
-## Exemples
-
-```python
-# ...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

@@ -1,11 +1,8 @@
-# List record fields
+# List Record Fields
 
-## TL;DR
+## Overview
 
-- Résumé + exemple.
+This section covers details about **List Record Fields**.
 
-## Exemples
-
-```python
-# ...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

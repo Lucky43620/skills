@@ -1,33 +1,32 @@
-# Access Rights (ACL)
+# Access Rights (`ir.model.access`)
 
-## TL;DR
+Access rights grant access to an entire model for a given set of operations.
 
-- Les ACL (`ir.model.access.csv`) définissent les droits CRUD par modèle et groupe.
-- C’est la première couche : sans read, rien n’apparaît.
+*   **Additive Rights:** A user’s accesses are the union of the accesses they get through all their groups.
+*   **Default Deny:** If no access rights match an operation on a model for a user (through their group), the user doesn’t have access.
 
-## Concepts clés
+## Model Definition
 
-- Colonnes CSV : `id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink`.
-- group_id vide → règle globale pour tous les utilisateurs.
+The `ir.model.access` model allows defining these rights.
 
-## Patterns recommandés
+**Fields:**
+*   `name`: The purpose or role of the group (e.g., "account.move.line.read.group").
+*   `model_id`: The model whose access the ACL controls.
+*   `group_id`: The `res.groups` to which the accesses are granted.
+    *   Empty `group_id` means the ACL is granted to **every user** (including portal/public).
+*   `perm_read`: Allow read access.
+*   `perm_write`: Allow write access.
+*   `perm_create`: Allow create access.
+*   `perm_unlink`: Allow unlink (delete) access.
 
-- Créer des groupes dédiés à ton module si tu dois séparer les rôles.
-- Donner le minimum (least privilege) et compléter avec record rules.
+These flags are all unset (False) by default.
 
-## Pièges fréquents
+## CSV File Definition
 
-- Oublier une ACL → erreurs d’accès dans l’UI.
-- Mettre ACL trop permissives puis tenter de compenser avec des rules complexes.
-
-## Exemples
+Access rights are typically defined in a `ir.model.access.csv` file in the module's `security/` folder.
 
 ```csv
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_x_user,x user,model_x_model,base.group_user,1,1,1,0
+access_my_model_user,my.model.user,model_my_model,base.group_user,1,1,1,1
+access_my_model_manager,my.model.manager,model_my_model,base.group_system,1,1,1,1
 ```
-
-## Voir aussi
-
-- `assets/templates/server/ir_model_access.csv`
-- record_rules.md

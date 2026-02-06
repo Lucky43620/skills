@@ -1,31 +1,38 @@
-# Integration Testing
+# Integration Testing (Tours)
 
-## TL;DR
+Tours are integration tests that verify that the Python backend and JavaScript frontend work together. A tour is a scenario of steps (clicks, inputs) executed by a headless browser (PhantomJS/Chrome).
 
-- Résumé à compléter avec la règle, les API, et les patterns Odoo v19 associés.
+## Structure
+Located in `static/tests/tours/`.
 
-## Concepts clés
+**File `your_tour.js`:**
+```js
+import { registry } from "@web/core/registry";
 
-- Définitions et concepts liés à la sous-rubrique.
-
-## Patterns recommandés
-
-- Patterns / snippets recommandés.
-
-## Pièges fréquents
-
-- Pièges courants, erreurs typiques et comment les éviter.
-
-## Checklist
-
-- [ ] Étapes minimales pour implémenter correctement.
-
-## Exemples
-
-```text
-# Ajoute ici des exemples pertinents.
+registry.category("web_tour.tours").add('my_tour', {
+    test: true,
+    url: '/odoo',
+    steps: () => [
+        {
+            content: "Click on the App",
+            trigger: '.o_app[data-menu-xmlid="my_module.menu_root"]',
+            run: "click",
+        },
+        {
+            content: "Check result",
+            trigger: '.o_kanban_view',
+        },
+    ]
+});
 ```
 
-## Voir aussi
+## Running Tours
+Tours are run from a Python test case using `HttpCase`.
 
-- (voir index de la section)
+```python
+from odoo.tests.common import HttpCase
+
+class TestMyTour(HttpCase):
+    def test_tour(self):
+        self.start_tour("/web", 'my_tour', login="admin")
+```

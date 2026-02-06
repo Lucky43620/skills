@@ -1,29 +1,24 @@
-# Python
+# Python Expressions (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+In Server-Side QWeb (Python), expressions are evaluated in a sandboxed Python environment.
 
-## TL;DR
+## Context
+You have access to:
+*   `user`: Current user record.
+*   `res_company`: Current company.
+*   `env`: The Environment.
+*   `time`, `datetime`, `dateutil`: Standard libraries.
 
-- Résumé à compléter + patterns.
-
-## Concepts clés
-
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+## Call Syntax
+```xml
+<span t-out="record.date_order.strftime('%Y-%m-%d')"/>
+<span t-out="len(record.line_ids)"/>
 ```
+
+## Assignation
+```xml
+<t t-set="total" t-value="sum(line.price_subtotal for line in record.order_line)"/>
+```
+
+## Security
+For security reasons, you cannot import modules or access private methods (`_method`) from QWeb.

@@ -1,5 +1,8 @@
-# View records
+# View Records
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `user_interface/view_records/index.md`
+This section covers details about **View Records**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

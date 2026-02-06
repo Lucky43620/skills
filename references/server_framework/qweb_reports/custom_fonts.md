@@ -1,33 +1,25 @@
-# Custom fonts
+# Custom Fonts
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/reports.html
+To use custom fonts in QWeb reports, you must add the font and related CSS/Less to the `web.reports_assets_common` bundle.
 
-## TL;DR
+*   Adding to `web.assets_backend` is **NOT** sufficient for reports (wkhtmltopdf needs access).
 
-- Résumé à compléter avec la règle, les API, et les patterns Odoo v19 associés.
-
-## Concepts clés
-
-- Définitions et concepts liés à la sous-rubrique.
-
-## Patterns recommandés
-
-- Patterns / snippets recommandés.
-
-## Pièges fréquents
-
-- Pièges courants, erreurs typiques et comment les éviter.
-
-## Checklist
-
-- [ ] Étapes minimales pour implémenter correctement.
-
-## Exemples
-
-```text
-# Ajoute ici des exemples pertinents.
+**Example:**
+```xml
+<template id="report_assets_common_custom_fonts" inherit_id="web.report_assets_common">
+    <xpath expr="." position="inside">
+        <link href="/my_module/static/src/less/fonts.less" rel="stylesheet" type="text/less"/>
+    </xpath>
+</template>
 ```
 
-## Voir aussi
-
-- (voir index de la section)
+**CSS (`fonts.less`):**
+```css
+@font-face {
+    font-family: 'MyFont';
+    src: url(/my_module/static/fonts/MyFont.ttf) format('truetype');
+}
+.my-custom-class {
+    font-family: 'MyFont';
+}
+```

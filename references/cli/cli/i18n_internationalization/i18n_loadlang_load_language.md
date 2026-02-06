@@ -1,11 +1,3 @@
-# i18n loadlang - Load language
+# I18N Loadlang Load Language
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

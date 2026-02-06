@@ -1,29 +1,33 @@
-# calling sub-templates
+# Calling Sub-templates (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+## `t-call`
+Invokes another template by its XML ID.
 
-## TL;DR
+```xml
+<t t-call="module_name.other_template_id"/>
+```
 
-- Résumé à compléter + patterns.
+## Passing Variables
+Variables defined inside the `t-call` body (using `t-set`) are passed to the sub-template.
 
-## Concepts clés
+```xml
+<t t-call="web.layout">
+    <t t-set="title">My Custom Page</t>
+    <div>
+        Page Content...
+    </div>
+</t>
+```
 
-- Concepts clés.
+## `t-out="0"` (The Body)
+In the *called* template, the content defined inside the `t-call` tag (like "Page Content..." above) is injected where `t-out="0"` is placed.
 
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+```xml
+<!-- web.layout template definition -->
+<html>
+    <title><t t-out="title"/></title>
+    <body>
+        <t t-out="0"/> <!-- Content is injected here -->
+    </body>
+</html>
 ```

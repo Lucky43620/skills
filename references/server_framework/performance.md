@@ -1,5 +1,8 @@
 # Performance
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `server_framework/performance/index.md`
+This section covers details about **Performance**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

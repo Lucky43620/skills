@@ -1,29 +1,28 @@
-# Patching a simple object
+# Patching a Simple Object
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/patching_code.html
+You can also patch plain Javascript objects (instances), not just prototypes.
 
-## TL;DR
+## Usage
+Only the specific instance is modified.
 
-- Résumé à compléter + patterns.
+```javascript
+import { patch } from "@web/core/utils/patch";
 
-## Concepts clés
+const myObj = {
+    sayHello() {
+        return "Hello";
+    }
+};
 
-- Concepts clés.
+patch(myObj, {
+    sayHello() {
+        return super.sayHello() + " World";
+    }
+});
 
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+console.log(myObj.sayHello()); // "Hello World"
 ```
+
+## Use Case
+*   Patching a specific `service` instance exported by a module (if it's not a class).
+*   Patching global singletons (rare/discouraged).

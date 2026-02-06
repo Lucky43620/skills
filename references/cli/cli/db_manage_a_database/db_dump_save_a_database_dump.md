@@ -1,11 +1,3 @@
-# db dump - Save a Database Dump
+# Db Dump Save A Database Dump
 
-## TL;DR
-
-- Commande DB - exemple d'usage + pièges.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

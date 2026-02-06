@@ -1,5 +1,8 @@
-# SCSS inheritance
+# Scss Inheritance
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `user_interface/scss_inheritance/index.md`
+This section covers details about **Scss Inheritance**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

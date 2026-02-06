@@ -1,37 +1,40 @@
-# Record Rules
+# Record Rules (`ir.rule`)
 
-## TL;DR
+Record rules are conditions which must be satisfied in order for an operation to be allowed. They are evaluated record-by-record, following access rights.
 
-- Les record rules filtrent les records accessibles selon un domaine, par groupe.
-- Couche fine : s’applique à read/write/create/unlink selon paramètres.
+*   **Row-Level Security:** Filters specific records a user can see/modify.
+*   **Default Allow:** If access rights grant access and *no rule applies* to the operation and model for the user, admission is granted.
 
-## Concepts clés
+## Model Definition
 
-- Modèle `ir.rule` avec champ `domain_force`.
-- L’utilisateur superuser (sudo) ignore les rules.
+**Fields:**
+*   `name`: Description of the rule.
+*   `model_id`: The model to which the rule applies.
+*   `groups`: `res.groups` to which access is granted/restricted.
+    *   If no group is specified, the rule is **Global**.
+*   `domain_force`: A Python expression domain.
+    *   `['|', ('user_id', '=', user.id), ('user_id', '=', False)]`
+*   `perm_read`: Apply rule for Read.
+*   `perm_write`: Apply rule for Write.
+*   `perm_create`: Apply rule for Create.
+*   `perm_unlink`: Apply rule for Delete.
 
-## Patterns recommandés
+## Domain Variables
 
-- Écrire des domains simples, basés sur company, owner, ou relations directes.
-- Tester avec un utilisateur standard + multi-company si applicable.
+The domain evaluation context includes:
+*   `user`: The current user (recordset singleton).
+*   `time`: Python `time` module.
+*   `company_id`: Current user's selected company ID (int).
+*   `company_ids`: List of accessible company IDs (list of ints).
 
-## Pièges fréquents
+## Global vs Group Rules
 
-- Rules qui se contredisent → records invisibles.
-- Rules avec `|`/`&` complexes difficiles à maintenir.
+*   **Global Rules (Intersect/AND):** If two global rules apply, **both** must be satisfied. Adding a global rule always restricts access further.
+*   **Group Rules (Unify/OR):** If two group rules apply, **either** can be satisfied. Adding group rules expands access (up to the limit of global rules).
+*   **Combination:** Global rules are applied first (AND), then the union of Group rules (OR) is applied within that subset.
 
-## Exemples
+**Implication:**
+Reading a record requires: `(Global_Rule_1 AND Global_Rule_2) AND (Group_Rule_A OR Group_Rule_B)`
 
-```xml
-<record id="rule_x_own" model="ir.rule">
-  <field name="name">X: only own</field>
-  <field name="model_id" ref="model_x_model"/>
-  <field name="domain_force">[("create_uid","=",user.id)]</field>
-  <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-</record>
-```
-
-## Voir aussi
-
-- `assets/templates/server/record_rules.xml`
-- access_rights.md
+> [!WARNING]
+> Creating multiple global rules is risky as it’s possible to create non-overlapping rulesets, which will remove all access.

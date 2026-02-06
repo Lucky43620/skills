@@ -1,91 +1,52 @@
-# Manifest (__manifest__.py)
-
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/module.html
+# Manifest (`__manifest__.py`)
 
 ## TL;DR
+The manifest describes the module to the Odoo server. It dictates dependencies, data loading order, and metadata.
+**Critical:** `depends` controls load order. `data` order matters (top to bottom).
 
-- Le fichier `__manifest__.py` décrit un module (métadonnées, dépendances, données, assets).
-- Il contrôle l’installation, les dépendances et le chargement des données.
-
-## Quand l’utiliser
-
-- À la création ou mise à jour d’un module.
-- Pour ajouter des assets, des données XML/CSV ou des dépendances.
-
-## Concepts clés
-
-- **`depends`** : modules requis.
-- **`data`/`demo`** : fichiers chargés par Odoo.
-- **`assets`** : bundles JS/SCSS/QWeb.
-- **`installable`** : activation du module.
-
-## API / Syntaxe
+## Structure
+A Python dictionary available in `__manifest__.py`.
 
 ```python
-# my_module/__manifest__.py
 {
-    "name": "My Module",
-    "version": "1.0",
-    "depends": ["base", "web"],
-    "data": [
-        "security/ir.model.access.csv",
-        "views/my_model_views.xml",
+    'name': "My Module",
+    'version': '1.0',
+    'depends': ['base', 'sale'],
+    'author': "Author Name",
+    'category': 'Category',
+    'description': """
+    Description text
+    """,
+    # Data files to load (order matters!)
+    'data': [
+        'security/ir.model.access.csv',
+        'views/views.xml',
     ],
-    "demo": [
-        "demo/demo_data.xml",
-    ],
-    "assets": {
-        "web.assets_backend": [
-            "my_module/static/src/js/my_widget.js",
-        ],
-        "web.assets_qweb": [
-            "my_module/static/src/xml/my_widget.xml",
-        ],
-    },
-    "installable": True,
+    # Application vs Technical
+    'application': True,
+    'installable': True,
+    # License
+    'license': 'LGPL-3',
 }
 ```
 
-## Patterns recommandés
+## Key Keys
+*   **name** (`str`): Module title.
+*   **version** (`str`): Semantic versioning (e.g., `1.0`).
+*   **depends** (`list`): List of module technical names. Odoo ensures these are loaded *before* your module.
+*   **data** (`list`): Path to XML/CSV files relative to module root.
+*   **demo** (`list`): Data loaded only if "Load Demo Data" is checked.
+*   **assets** (`dict`): Bundle definitions (JS/CSS). **New in v15+**.
+    ```python
+    'assets': {
+        'web.assets_backend': [
+            'my_module/static/src/**/*',
+        ],
+    }
+    ```
+*   **license** (`str`): `LGPL-3`, `OEEL-1`, etc.
 
-- Séparer `data/` et `demo/`.
-- Déclarer les assets par bundle (backend/frontend/tests).
-- Garder `depends` minimal et explicite.
-
-## Anti-patterns & pièges
-
-- Oublier un fichier `data` → vues non chargées.
-- Dépendances implicites via des imports Python.
-
-## Debug & troubleshooting
-
-- Vérifier les logs au démarrage pour les fichiers manquants.
-- Contrôler l’ordre de chargement si un `xmlid` est introuvable.
-
-## Exemples complets
-
-```text
-my_module/
-  __manifest__.py
-  models/
-  views/
-  security/
-  static/src/
-```
-
-## Checklist
-
-- [ ] `depends` complet et minimal.
-- [ ] `data`/`demo` correctement déclarés.
-- [ ] Assets ajoutés au bon bundle.
-
-## Liens officiels
-
-- https://www.odoo.com/documentation/19.0/developer/reference/backend/module.html
-
-## Voir aussi
-
-- [Module manifests (index)](index.md)
-- [Assets](../../web_framework/assets/index.md)
-- [Data files](../data_files/index.md)
-- [Security](../security_in_odoo/index.md)
+## Pitfalls
+*   **Order Dependency:** If View B inherits from View A, the file containing View A *must* be loaded first in `data` (or in a module in `depends`).
+*   **Comma Errors:** It's a Python dict. Missing commas cause Syntax Errors prevents server start.
+*   **Cache:** Changes to manifest (like adding a file to `data`) require a server restart + module upgrade.

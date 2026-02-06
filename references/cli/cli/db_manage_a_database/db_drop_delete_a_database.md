@@ -1,11 +1,3 @@
-# db drop - Delete a Database
+# Db Drop Delete A Database
 
-## TL;DR
-
-- Commande DB - exemple d'usage + pièges.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

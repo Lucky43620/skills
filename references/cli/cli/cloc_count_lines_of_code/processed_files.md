@@ -1,11 +1,3 @@
-# cloc: Processed files
+# Processed Files
 
-## TL;DR
-
-- Résumé + exemple.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.

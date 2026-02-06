@@ -1,11 +1,8 @@
 # Flow
 
-## TL;DR
+## Overview
 
-- Résumé + exemples.
+This section covers details about **Flow**.
 
-## Exemples
-
-```text
-...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

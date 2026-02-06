@@ -6,6 +6,7 @@ Rubrique **Hooks** (Web framework) : frontend Odoo (JS/Owl) + architecture webcl
 
 ## Sous-rubriques
 
+- [useService](useservice.md) (Le plus important !)
 - [useAssets](useassets.md)
 - [useAutofocus](useautofocus.md)
 - [useBus](usebus.md)

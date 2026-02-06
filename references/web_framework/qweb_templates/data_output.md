@@ -1,29 +1,25 @@
-# Data output
+# Data Output (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+## `t-out` (Escaped)
+Outputs the value of an expression, **escaping** HTML characters (security safe).
+*   **Alias:** `t-esc` (deprecated in newer versions, prefer `t-out`).
 
-## TL;DR
+```xml
+<span t-out="record.name"/>
+<!-- If name is "A&B", output is "A&amp;B" -->
+```
 
-- Résumé à compléter + patterns.
+## `t-raw` (Unescaped)
+Outputs the raw value without escaping. **Danger:** Prone to XSS. Use only if you strictly trust the content.
 
-## Concepts clés
+```xml
+<div t-raw="record.description_html"/>
+```
 
-- Concepts clés.
+## `t-field` (Field Formatting)
+Specific to Odoo views. format the value according to the field type (Date, Float, Monetary).
 
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+```xml
+<span t-field="record.date_order"/>
+<span t-field="record.amount_total" t-options="{'widget': 'monetary', 'display_currency': currency}"/>
 ```

@@ -1,23 +1,26 @@
-# Patching a component
+# Patching a Component
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/patching_code.html
+You can patch any Owl component registered in Odoo.
 
-## TL;DR
+## Example
+Patching the `ListController` to add a `console.log` on mount.
 
-- Cas fréquent : ajouter un comportement ou un handler à un composant existant.
-- Toujours préserver l’appel à `super.setup()` ou logique originale quand applicable.
-
-## Exemples
-
-```js
-/** @odoo-module **/
+```javascript
+import { ListController } from "@web/views/list/list_controller";
 import { patch } from "@web/core/utils/patch";
-import { SomeComponent } from "@web/...";
 
-patch(SomeComponent.prototype, "my_addon.patch", {
-  setup() {
-    this._super(...arguments);
-    // custom init
-  },
+patch(ListController.prototype, {
+    setup() {
+        super.setup();
+        console.log("List View Mounted!");
+    },
+    
+    createRecord() {
+        console.log("About to create");
+        return super.createRecord(...arguments);
+    }
 });
 ```
+
+*   **Target:** `ListController.prototype` (not the class itself).
+*   **Super:** `super.methodName()` calls the original logic.

@@ -1,29 +1,34 @@
-# attributes
+# Attributes (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+## `t-att-` (Dynamic Attributes)
+Adds or sets an HTML attribute dynamically.
 
-## TL;DR
+```xml
+<!-- If my_id is 5 -->
+<div t-att-id="my_id">...</div>
+<!-- Result: <div id="5">...</div> -->
+```
 
-- Résumé à compléter + patterns.
+## `t-attf-` (Format String)
+Interpolates values directly into a string string using `{{ }}`.
 
-## Concepts clés
+```xml
+<div t-attf-class="btn btn-{{ style_color }}">...</div>
+<!-- If style_color is 'primary' -->
+<!-- Result: <div class="btn btn-primary">...</div> -->
+```
 
-- Concepts clés.
+## `t-att` (Mapping)
+Accepts a dictionary/object and unpacks it as attributes.
 
-## Patterns recommandés
+```xml
+<div t-att="{'data-id': 1, 'class': 'active'}"/>
+<!-- Result: <div data-id="1" class="active"/> -->
+```
 
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+## Class Lists
+If you pass a list to `class`, Odoo joins them with spaces.
+```xml
+<div t-att-class="['a', 'b']"/>
+<!-- <div class="a b"/> -->
 ```

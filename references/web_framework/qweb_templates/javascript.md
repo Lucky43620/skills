@@ -1,29 +1,23 @@
-# Javascript
+# Javascript Expressions (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+In Client-Side QWeb (Owl), expressions are Javascript.
 
-## TL;DR
+## Scope
+The scope is the component's state and props, plus anything passed in `t-set`.
 
-- Résumé à compléter + patterns.
+## Syntax
+Standard JS expression syntax.
 
-## Concepts clés
+```xml
+<div t-if="props.total > 100">
+    <span t-out="props.total.toFixed(2)"/>
+</div>
 
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+<!-- String concatenation -->
+<div t-att-class="'btn btn-' + (isActive ? 'primary' : 'secondary')">
+    Click Me
+</div>
 ```
+
+## Helpers
+Unlike Python, there are very few global helpers. Most logic should be computed in the Component's `setup()` or `getters` and passed to the template.

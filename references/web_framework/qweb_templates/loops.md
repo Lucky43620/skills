@@ -1,16 +1,30 @@
-# Loops (QWeb frontend)
+# Loops (QWeb)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/qweb.html
+## `t-foreach`
+Iterates over a list, recordset, or object.
 
-## TL;DR
-
-- Boucles via `t-foreach` + `t-as` + `t-key`.
-- Toujours fournir un `t-key` stable pour éviter des glitchs DOM.
-
-## Exemples
+### Syntax
+*   `t-foreach`: The collection to iterate.
+*   `t-as`: The name of the variable for the current item.
 
 ```xml
-<t t-foreach="props.items" t-as="item" t-key="item.id">
-  <div><t t-esc="item.name"/></div>
+<t t-foreach="[1, 2, 3]" t-as="i">
+    <p>Number: <t t-out="i"/></p>
 </t>
+```
+
+### Key Helpers
+Inside the loop, extra variables are available (prefixed by the `t-as` name):
+*   `i_index`: 0-based index of the iteration.
+*   `i_first`: True if this is the first item.
+*   `i_last`: True if this is the last item.
+*   `i_size`: Total size of the collection.
+*   `i_parity`: 'odd' or 'even'.
+
+### Example with Helpers
+```xml
+<tr t-foreach="lines" t-as="line" t-att-class="line_parity">
+    <td><t t-out="line_index + 1"/></td>
+    <td><t t-out="line.name"/></td>
+</tr>
 ```

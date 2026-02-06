@@ -1,27 +1,22 @@
-# Registries
+# Registries (JS)
 
-## TL;DR
+Registries are ordered key-value stores used to register components, services, fields, and views. They allow modules to extend the system without tight coupling.
 
-- Résumé à compléter + patterns.
+## Main Registries
+*   `services`: Global services (rpc, orm, etc.).
+*   `fields`: Field components (char, boolean, many2one).
+*   `views`: View types (form, list, kanban).
+*   `systray`: Icons in the top bar.
 
-## Concepts clés
+## Usage
+```javascript
+import { registry } from "@web/core/registry";
 
-- Concepts clés.
+const myService = { ... };
 
-## Patterns recommandés
+// Registering
+registry.category("services").add("my_service", myService);
 
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```text
-# Exemples à ajouter.
+// Retrieving
+const allServices = registry.category("services").getEntries();
 ```

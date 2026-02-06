@@ -1,27 +1,10 @@
-# Odoo Spreadsheet icons
+# Spreadsheet Icons
 
-## TL;DR
+The Spreadsheet component in Odoo uses a dedicated set of icons optimized for grid interactions and formula editing.
 
-- Résumé à compléter + exemples XML.
+These are often SVG-based or font-based within the `o-spreadsheet` namespace.
 
-## Concepts clés
+**Usage:**
+Typically internal to the spreadsheet client action and not frequently used directly in standard backend views unless extending the spreadsheet component itself.
 
-- Concepts clés.
-
-## Patterns recommandés
-
-- Patterns recommandés.
-
-## Pièges fréquents
-
-- Pièges fréquents.
-
-## Checklist
-
-- [ ] Étapes minimales.
-
-## Exemples
-
-```xml
-<!-- Exemple à ajouter -->
-```
+For general backend UI, usage of standard [Odoo Icons](odoo_ui_icons.md) is preferred.

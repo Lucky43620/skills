@@ -1,11 +1,8 @@
-# Inspection and introspection
+# Inspection And Introspection
 
-## TL;DR
+## Overview
 
-- Résumé + exemple.
+This section covers details about **Inspection And Introspection**.
 
-## Exemples
-
-```python
-# ...
-```
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

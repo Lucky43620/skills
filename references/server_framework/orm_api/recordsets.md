@@ -1,52 +1,41 @@
 # Recordsets (ORM API)
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/orm.html
+> Doc officielle : https://www.odoo.com/documentation/19.0/fr/developer/reference/backend/orm.html#recordsets
 
-## TL;DR
+## Définition
+Un **Recordset** est une collection ordonnée d'enregistrements du même modèle.
+Même un enregistrement seul (`self.partner_id`) est un recordset de taille 1 (Singleton).
 
-- Un recordset = collection ordonnée de records d’un modèle (peut être vide, 1 ou N).
-- `self` est presque toujours un recordset (multi) : coder en conséquence.
-- Le cache/prefetch réduit les requêtes; éviter les patterns N+1.
+## Opérations sur les Ensembles
+Les recordsets supportent les opérations python standards :
+- **Union**: `res = r1 | r2`
+- **Intersection**: `res = r1 & r2`
+- **Différence**: `res = r1 - r2`
 
-## Concepts clés
-
-- Recordset vide (`self` falsy) vs singleton vs multi.
-- Opérations classiques: `mapped`, `filtered`, `sorted`, `exists`, `sudo`, `with_context`, `with_company`.
-- `browse(ids)` ne fait pas de query immédiate; `search(domain)` oui.
-
-## Patterns recommandés
-
-- Boucler `for rec in self:` quand on écrit sur des champs.
-- Utiliser `ensure_one()` quand on accède à un champ supposé unique.
-- Regrouper les reads (prefetch) et éviter `search` dans des boucles.
-
-## Pièges fréquents
-
-- Appeler une méthode qui suppose 1 record sur un recordset multi (bugs silencieux ou erreurs).
-- Faire `for rec in self: rec.other_id.name` sans anticiper prefetch (N+1 sur relations complexes).
-- Confondre recordset et liste d’ids (ex: `ids` vs `mapped('id')`).
-
-## Checklist
-
-- [ ] Cette méthode fonctionne-t-elle si `self` contient plusieurs records ?
-- [ ] Y a-t-il des searches dans une boucle ?
-- [ ] Peut-on remplacer par `read_group`, `search_read`, `search_fetch` (si dispo) ?
-
-## Exemples
-
+## Itération
+L'itération est standard.
 ```python
-# mapped / filtered / sorted
-partners = self.mapped('partner_id').filtered(lambda p: p.active)
-partners = partners.sorted(key=lambda p: p.name or "")
+for record in records:
+    print(record.name) # record est un Singleton
 ```
 
-```python
-# ensure_one
-self.ensure_one()
-return self.name
-```
+## Singleton
+Si un recordset contient exactement 1 enregistrement, on peut accéder directement à ses champs.
+`record.name`
+Si 0 ou >1 enregistrements -> Erreur (sauf pour comparaison d'égalité).
 
-```python
-# with_context / sudo
-records = self.with_context(active_test=False).sudo()
-```
+Pour s'assurer d'avoir un singleton :
+`record.ensure_one()` (Lève une erreur si vide ou multiple).
+
+## Cache et Prefetching
+Odoo utilise un cache intelligent.
+- Accéder à un champ (`rec.name`) charge ce champ pour **tous** les enregistrements du recordset "prefetch" (souvent ceux de la boucle).
+- Evite le problème "N+1 queries".
+
+## Méthodes de Recordset (High Level)
+- `ids`: Liste des IDs Python (`[1, 2, 3]`).
+- `env`: Accès à l'environnement (`self.env`).
+- `exists()`: Retourne un sous-ensemble des enregistrements qui existent encore en DB.
+- `sudo()`: Retourne une copie du recordset avec droits admin (ou autre user).
+- `with_context(**kwargs)`: Retourne une copie avec un contexte modifié.
+- `with_company(company)`: Retourne une copie avec le contexte de société forcé.

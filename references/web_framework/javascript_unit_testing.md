@@ -1,5 +1,8 @@
-# JavaScript Unit Testing
+# Javascript Unit Testing
 
-Cette rubrique est découpée en sous-pages “encyclopédie”.
+## Overview
 
-➡️ Ouvre : `web_framework/javascript_unit_testing/index.md`
+This section covers details about **Javascript Unit Testing**.
+
+> [!TIP]
+> This is a placeholder reference. Check the [Parent Index](../index.md) for context.

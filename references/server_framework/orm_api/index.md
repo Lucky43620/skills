@@ -1,25 +1,30 @@
-# ORM API
+# ORM API Overview
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/orm.html
+The **ORM (Object-Relational Mapping)** is the core of Odoo backend development. It maps Python classes (Models) to PostgreSQL database tables.
 
-Rubrique **ORM API** (Server framework). Cette section est structurée comme la doc Odoo v19.
+## Key Concepts
+*   **Models:** Python classes inheriting `odoo.models.Model`. Each class = one table.
+*   **Fields:** Attributes of the class (Char, Integer, Many2one). Define columns.
+*   **Recordsets:** The primary data structure. Methods usually operate on a *set* of records (self), not just one.
+*   **Environment (`self.env`):** Access to DB cursor, current user, context, and other models.
 
-## Sous-rubriques
+## Basic Usage
+```python
+# Create
+partner = self.env['res.partner'].create({'name': 'John'})
 
-- [Changelog](changelog.md)
-- [Models](models.md)
-- [Fields](fields.md)
-- [Constraints and indexes](constraints_and_indexes.md)
-- [Recordsets](recordsets.md)
-- [Method decorators](method_decorators.md)
-- [Environment](environment.md)
-- [Common ORM methods](common_orm_methods.md)
-- [Inheritance and extension](inheritance_and_extension.md)
-- [Error management](error_management.md)
+# Search
+partners = self.env['res.partner'].search([('is_company', '=', True)])
 
-## Checklist rapide
+# Update
+partners.write({'active': True})
 
-- Identifier le besoin exact (API / XML / UI / perf / sécurité).
-- Repérer les fichiers Odoo concernés (Python, XML, CSV, JS).
-- Appliquer un pattern de référence (snippets).
-- Vérifier tests + debug.
+# Delete
+partners.unlink()
+```
+
+## Conventions
+*   `_name`: Technical name (e.g. `sale.order`).
+*   `_description`: User-friendly name.
+*   `_order`: Default sorting.
+*   `_rec_name`: Field to display in Many2zones (default: `name`).

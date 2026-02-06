@@ -1,33 +1,26 @@
 # Custom Reports
 
-> Doc officielle : https://www.odoo.com/documentation/19.0/developer/reference/backend/reports.html
+By default, the reporting system passes the records (`docs`) to the template. If you need arbitrary data (e.g., aggregated stats, data from other models), you can define a **Custom Report**.
 
-## TL;DR
+This is an `AbstractModel` named `report.{module.report_name}`.
 
-- Résumé à compléter avec la règle, les API, et les patterns Odoo v19 associés.
+```python
+from odoo import api, models
 
-## Concepts clés
+class ParticularReport(models.AbstractModel):
+    _name = 'report.module.report_name'
 
-- Définitions et concepts liés à la sous-rubrique.
-
-## Patterns recommandés
-
-- Patterns / snippets recommandés.
-
-## Pièges fréquents
-
-- Pièges courants, erreurs typiques et comment les éviter.
-
-## Checklist
-
-- [ ] Étapes minimales pour implémenter correctement.
-
-## Exemples
-
-```text
-# Ajoute ici des exemples pertinents.
+    def _get_report_values(self, docids, data=None):
+        # get the records selected for this rendering of the report
+        docs = self.env['my.model'].browse(docids)
+        
+        return {
+            'doc_ids': docids,
+            'doc_model': 'my.model',
+            'docs': docs,
+            'other_data': self._get_stats(),
+        }
 ```
 
-## Voir aussi
-
-- (voir index de la section)
+> [!WARNING]
+> When using a custom report, the default `docs`, `doc_ids`, and `doc_model` variables are NOT automatically included. You must return them in the dictionary if your template needs them.

@@ -1,11 +1,3 @@
-# i18n import - Import i18n files
+# I18N Import Import I18N Files
 
-## TL;DR
-
-- Résumé + exemples.
-
-## Exemples
-
-```bash
-# ...
-```
+See the [Main CLI Index](../index.md) or run `./odoo-bin --help`.
