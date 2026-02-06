@@ -86,3 +86,6 @@ export class PanelWithBoundary extends Component {
 ## Voir aussi
 - [Catching errors](catching_errors.md)
 - [Errors in JavaScript](errors_in_javascript.md)
+- [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
+- [When to throw errors](when_to_throw_errors.md)
+- [Error handling](index.md)

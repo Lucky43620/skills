@@ -87,3 +87,6 @@ export class CustomerForm extends Component {
 ## Voir aussi
 - [Errors in JavaScript](errors_in_javascript.md)
 - [When to throw errors](when_to_throw_errors.md)
+- [Catching errors](catching_errors.md)
+- [Error free control flow](error_free_control_flow.md)
+- [Error handling](index.md)
