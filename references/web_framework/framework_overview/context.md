@@ -67,5 +67,5 @@ export async function openPartner(env, partnerId) {
 ## Voir aussi
 
 - [Actions JS](../javascript_reference/client_actions.md)
-- [Services](../services/index.md)
+- [Services](../services.md)
 - [ORM API (server)](../../server_framework/orm_api.md)

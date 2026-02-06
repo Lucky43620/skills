@@ -71,7 +71,7 @@ registry.category("services").add("my_service", myService);
 
 ## Voir aussi
 
-- [Services](../services/index.md)
-- [Registres](../registries/index.md)
-- [Composants OWL](../owl_components/index.md)
-- [QWeb templates](../qweb_templates/index.md)
+- [Services](../services.md)
+- [Registres](../registries.md)
+- [Composants OWL](../owl_components.md)
+- [QWeb templates](../qweb_templates.md)

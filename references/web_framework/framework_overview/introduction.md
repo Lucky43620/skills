@@ -79,6 +79,6 @@ registry.category("actions").add("my_module.action", (env) => {
 ## Voir aussi
 
 - [Structure du code](code_structure.md)
-- [Registres](../registries/index.md)
-- [Services](../services/index.md)
-- [Assets](../assets/index.md)
+- [Registres](../registries.md)
+- [Services](../services.md)
+- [Assets](../assets.md)

@@ -73,6 +73,6 @@ my_module/
 
 ## Voir aussi
 
-- [Assets](../assets/index.md)
-- [Modules JavaScript](../javascript_modules/index.md)
-- [Owl components](../owl_components/index.md)
+- [Assets](../assets.md)
+- [Modules JavaScript](../javascript_modules.md)
+- [Owl components](../owl_components.md)

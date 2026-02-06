@@ -65,6 +65,6 @@ if (isDebug) {
 
 ## Voir aussi
 
-- [Assets](../assets/index.md)
-- [Error handling](../error_handling/index.md)
-- [Modules JavaScript](../javascript_modules/index.md)
+- [Assets](../assets.md)
+- [Error handling](../error_handling.md)
+- [Modules JavaScript](../javascript_modules.md)

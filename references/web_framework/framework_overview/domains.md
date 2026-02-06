@@ -70,5 +70,5 @@ const partners = await this.env.services.orm.searchRead(
 ## Voir aussi
 
 - [ORM API](../../server_framework/orm_api.md)
-- [Services](../services/index.md)
-- [QWeb templates](../qweb_templates/index.md)
+- [Services](../services.md)
+- [QWeb templates](../qweb_templates.md)

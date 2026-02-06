@@ -69,6 +69,6 @@ export class MyComponent extends Component {
 
 ## Voir aussi
 
-- [Services](../services/index.md)
-- [Hooks](../hooks/index.md)
-- [Error handling](../error_handling/index.md)
+- [Services](../services.md)
+- [Hooks](../hooks.md)
+- [Error handling](../error_handling.md)

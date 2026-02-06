@@ -67,5 +67,5 @@ registry.category("actions").add("my_module.client_action", MyAction);
 ## Voir aussi
 
 - [Actions JS](../javascript_reference/client_actions.md)
-- [Registres](../registries/index.md)
-- [Services](../services/index.md)
+- [Registres](../registries.md)
+- [Services](../services.md)

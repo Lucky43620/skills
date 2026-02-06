@@ -73,6 +73,6 @@ registry.category("services").add("my_module_bus", busSubscriber);
 
 ## Voir aussi
 
-- [Services](../services/index.md)
-- [Hooks](../hooks/index.md)
-- [Error handling](../error_handling/index.md)
+- [Services](../services.md)
+- [Hooks](../hooks.md)
+- [Error handling](../error_handling.md)
