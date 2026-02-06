@@ -4,26 +4,71 @@
 
 ## TL;DR
 
-- Résumé à compléter + patterns.
+- L’environnement (`env`) OWL expose les services, la session et les contextes.
+- Toujours passer par `env.services` pour accéder aux API du client.
+
+## Quand l’utiliser
+
+- Quand un composant a besoin d’ORM, d’actions, de notifications.
+- Pour partager des infos via `env` dans des composants enfants.
 
 ## Concepts clés
 
-- Concepts clés.
+- `env.services`: accès aux services (`orm`, `rpc`, `action`, `notification`).
+- `env.session`: informations de session utilisateur.
+- `env.config`: paramètres du client.
+
+## API / Syntaxe
+
+- Injection : `setup()` → `this.env` dans un composant OWL.
+- Services : `this.env.services.orm.searchRead(...)`.
 
 ## Patterns recommandés
 
-- Patterns recommandés.
+- Centraliser les appels RPC dans un service dédié.
+- Utiliser `env` pour éviter les imports circulaires.
 
-## Pièges fréquents
+## Anti-patterns & pièges
 
-- Pièges fréquents.
+- Stocker des états globaux hors `env`.
+- Lire `window` pour obtenir des infos déjà disponibles dans `env`.
+
+## Debug & troubleshooting
+
+- Logguer `Object.keys(env.services)` pour voir les services disponibles.
+- Vérifier la présence du service dans le registry.
+
+## Exemples complets
+
+```javascript
+// my_module/static/src/js/my_component.js
+/** @odoo-module **/
+
+import { Component } from "@odoo/owl";
+
+export class MyComponent extends Component {
+    setup() {
+        this.orm = this.env.services.orm;
+    }
+
+    async loadPartners() {
+        return this.orm.searchRead("res.partner", [], ["name"]);
+    }
+}
+```
 
 ## Checklist
 
-- [ ] Étapes minimales.
+- [ ] Les services sont injectés via `env`.
+- [ ] Les accès session passent par `env.session`.
+- [ ] Les appels RPC sont centralisés.
 
-## Exemples
+## Liens officiels
 
-```text
-# Exemples à ajouter.
-```
+- https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/framework_overview.html
+
+## Voir aussi
+
+- [Services](../services/index.md)
+- [Hooks](../hooks/index.md)
+- [Error handling](../error_handling/index.md)

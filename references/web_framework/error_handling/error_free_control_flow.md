@@ -50,6 +50,7 @@ const items = await fetch().catch(() => []);
 ## Debug & troubleshooting
 - Remplace les `throw` non critiques par des retours explicites. 
 - Ajoute des logs lorsque `ok=false`. 
+- Teste les branches `ok=false` pour éviter les régressions. 
 
 ## Exemples complets
 ### Exemple — Service qui retourne un `Result`
@@ -77,3 +78,6 @@ export async function importData(rpc, payload) {
 ## Voir aussi
 - [Catching errors](catching_errors.md)
 - [When to throw errors](when_to_throw_errors.md)
+- [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
+- [Errors in JavaScript](errors_in_javascript.md)
+- [Error handling](index.md)

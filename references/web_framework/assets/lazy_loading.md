@@ -66,6 +66,12 @@ if (env.services.user.hasGroup("my_module.group_power")) {
 ```
 → prépare le code pour les profils qui en ont besoin. 
 
+4) **Isoler le code lazy dans un sous-dossier**
+```
+static/src/lazy/
+```
+→ facilite l’identification des chunks. 
+
 ## Anti-patterns & pièges
 - **Lazy loading de tout** → complexité inutile et UX dégradée. 
 - **Importer un module sans déclarer ses assets** → 404 en production. 
@@ -98,6 +104,7 @@ registry.category("actions").add("my_module.lazy", async () => {
 - [ ] Les chemins `import()` pointent vers des modules existants. 
 - [ ] Les assets nécessaires sont déclarés dans le manifest. 
 - [ ] Testé en `?debug=assets`. 
+- [ ] Les chunks sont cohérents (pas de duplication inutile). 
 
 ## Liens officiels
 - https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/assets.html

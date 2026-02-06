@@ -53,6 +53,7 @@ catch (error) { return []; }
 ## Debug & troubleshooting
 - Vérifie la console pour les erreurs `Uncaught (in promise)`. 
 - Ajoute des logs structurés avec le nom du module. 
+- Utilise `?debug=assets` pour remonter aux sources non minifiées. 
 
 ## Exemples complets
 ### Exemple — Service avec fallback
@@ -81,3 +82,6 @@ export async function fetchMetrics(rpc) {
 ## Voir aussi
 - [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
 - [Error free control flow](error_free_control_flow.md)
+- [Errors in JavaScript](errors_in_javascript.md)
+- [When to throw errors](when_to_throw_errors.md)
+- [Error handling](index.md)

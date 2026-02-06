@@ -53,6 +53,7 @@ error.message = `[MyFeature] ${error.message}`;
 ## Debug & troubleshooting
 - Inspecte la console pour voir la couche qui a intercepté. 
 - Vérifie si l’erreur vient d’un service (rpc) ou d’un composant. 
+- Ajoute un identifiant de contexte dans les logs pour tracer le flux. 
 
 ## Exemples complets
 ### Exemple — Boundary locale sur un panneau
@@ -86,3 +87,6 @@ export class PanelWithBoundary extends Component {
 ## Voir aussi
 - [Catching errors](catching_errors.md)
 - [Errors in JavaScript](errors_in_javascript.md)
+- [Avoid throwing errors as much as possible](avoid_throwing_errors_as_much_as_possible.md)
+- [When to throw errors](when_to_throw_errors.md)
+- [Error handling](index.md)

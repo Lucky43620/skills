@@ -68,6 +68,9 @@ my_module/views/assets.xml
 ```
 → utile en maintenance. 
 
+4) **Limiter le scope de l’override**
+→ cible un seul bundle et un seul `path` pour éviter les collisions. 
+
 ## Anti-patterns & pièges
 - **Path relatif** → l’asset n’est pas trouvé. 
 - **`replace` sans `content`** → bundle cassé. 
@@ -99,6 +102,7 @@ my_module/views/assets.xml
 - [ ] Path absolu valide. 
 - [ ] Directive adaptée (`remove`/`replace`/`before`/`after`). 
 - [ ] Testé en `?debug=assets`. 
+- [ ] Overrides documentés et versionnés. 
 
 ## Liens officiels
 - https://www.odoo.com/documentation/19.0/fr/developer/reference/frontend/assets.html
